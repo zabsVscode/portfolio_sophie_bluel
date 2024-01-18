@@ -1,22 +1,8 @@
-/*const content = document.querySelector(".gallery");
-let images;
+/*Variables*/
 
-async function fetchFiles() {
-    try {
-        const response = await fetch("http://localhost:5678/api");
-        images = await response.json();
-        console.log(images);
+const gallery = document.querySelector(".gallery");
 
-        for (let i = 0; i < images.length; i++) {
-            const imageElement = document.createElement('img');
-            imageElement.src = images[i].url;
-            content.appendChild(imageElement);
-        }
-    } catch (error) {
-        console.error("Erreur lors de la récupération des images :", error);
-    }
-}
-fetchFiles();*/
+/*Récupération des données du back-end*/
 
 var requestOptions = {
     method: 'GET',
@@ -27,3 +13,33 @@ var requestOptions = {
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
+
+    
+/*Fonction qui retourne le tableau works*/
+
+async function getWorks() {
+    const response = await fetch("http://localhost:5678/api/works");
+    return await response.json();
+    
+}
+
+getWorks();
+
+/*Affichage des works dans le DOM*/
+
+async function displayWorks() {
+    const arrayWorks = await getWorks();
+    arrayWorks.forEach( (work) => {
+        const figure = document.createElement("figure");
+        const img = document.createElement("img");
+        const figcaption = document.createElement("figcaption");
+        img.src = work.imageUrl;
+        figcaption.textContent = work.title;
+        figure.classList.add("galleryimg");
+        figure.appendChild(img);
+        figure.appendChild(figcaption);
+        gallery.appendChild(figure);
+    })
+}
+
+displayWorks();
