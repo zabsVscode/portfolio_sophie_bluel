@@ -50,7 +50,7 @@ displayWorks();
 //récupérer le tableau des catégories
 
 async function getCategorys() {
-    const response = await fetch("http://localhost:5678/api/works");
+    const response = await fetch("http://localhost:5678/api/categories");
     return await response.json();
     console.log(responseJson);
     }
