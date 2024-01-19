@@ -1,6 +1,7 @@
 /*Variables*/
 
 const gallery = document.querySelector(".gallery");
+const filters = document.querySelector(".filters");
 
 /*Récupération des données du back-end*/
 
@@ -43,3 +44,26 @@ async function displayWorks() {
 }
 
 displayWorks();
+
+/******Affichages des boutons par catégories******/
+
+//récupérer le tableau des catégories
+
+async function getCategorys() {
+    const response = await fetch("http://localhost:5678/api/works");
+    return await response.json();
+    console.log(responseJson);
+    }
+    
+    
+    async function displayCategorysButtons() {
+    const categorys = await getCategorys();
+    categorys.forEach((category) => {
+    const btn = document.createElement("button");
+    btn.textContent = category.name;
+    btn.id = category.id;
+    filters.appendChild(btn);
+    });
+    }
+    displayCategorysButtons();
+    
