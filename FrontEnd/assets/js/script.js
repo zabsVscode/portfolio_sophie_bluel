@@ -58,12 +58,43 @@ async function getCategorys() {
     
     async function displayCategorysButtons() {
     const categorys = await getCategorys();
-    categorys.forEach((category) => {
+    categorys.forEach(category => {
     const btn = document.createElement("button");
     btn.textContent = category.name;
     btn.id = category.id;
     filters.appendChild(btn);
+    
     });
     }
     displayCategorysButtons();
+
+    /*******Filtrer les éléments au click ******/
+    async function filterCategory() {
+
+        const works = await getWorks();
+        console.log(works)
+        const buttons = document.querySelectorAll(".filters button");
+
+        buttons.forEach((button) => {
+        button.addEventListener("click", (e) =>{
+        btnId= e.target.id;
+        gallery.innerHTML="";
+
+        if(btnId !== "0") {
+        const worksTriCategory = works.filters((work) => {
+        return work.categoryId == btnId;
+        })
+
+        worksTriCategory.forEach( work => {
+        displayWorks(work);
+        });
+        }else {
+        displayWorks();
+        }
+        console.log(btnId);
+        })
+        }     
+    )}
+    filterCategory();
+
     
