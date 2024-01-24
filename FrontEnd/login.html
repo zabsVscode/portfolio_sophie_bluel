@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/style.css">
+    <script src="./assets/js/loginscript.js" type="application/javascript" defer></script>
     </head>
     <body id="bodylogin">
         <header>
@@ -24,11 +25,16 @@
                 <h2>Log in</h2>
 		
 		<form action="#" method="post">
-			<label for="name">E-mail</label>
-			<input type="text" name="name" id="name">
-			<label for="email">Mot de passe</label>
-			<input type="email" name="email" id="email">
+            
+			<label for="email">E-mail</label>
+			<input class="error" id="email" type="email" name="email">
+
+			<label for="password">Mot de passe</label>
+			<input type="password" name="password" id="password">
+
             <input type="submit" value="Se connecter">
+            /*nous aurons possiblement besoin d'un button au lieu de input*/
+
             <a href="">Mot de passe oublié</a>
         </form>
             </section>

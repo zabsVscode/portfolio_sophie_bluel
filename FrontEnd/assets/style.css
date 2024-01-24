@@ -229,6 +229,10 @@ footer nav ul {
     place-items: center;
 }
 
+.error {
+	color:red;
+}
+
 /******MENU LOGIN******/
 
 #menu ul li {
@@ -273,7 +277,7 @@ footer nav ul {
 	display: flex;
 }
 
-#Login input[type="text"] {
+#Login input[type="email"] {
 	width: 379px;
 	height: 51px;
 	flex-shrink: 0;
@@ -283,7 +287,7 @@ footer nav ul {
 	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
 }
 
-#Login input[type="email"] {
+#Login input[type="password"] {
 	width: 379px;
 	height: 51px;
 	flex-shrink: 0;

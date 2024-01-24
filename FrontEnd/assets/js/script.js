@@ -78,15 +78,17 @@ function displayWorks(arrayWorks) {
     
 function displayCategorysButtons(arrayWokrs) {
     //set ->>>a voir
-
-    let tous = {0: "Tous"}
-    let objet = { 1: "Objet" };
-    let appartements = { 2: "Appartements" };
-    let hotelsRestaurants = { 3: "HotelsRestaurants" };
     
+    let categories = [
+      { name: 'Tous', id: 0 },
+      { name: 'Objets', id: 1 },
+      { name: 'Appartements', id: 2 },
+      { name: 'Hotels & restaurants', id: 3 }
+    ];
     
-
-    let categories = [{name:'Tous', id: 0}];
+    const uniqueButtonIds = new Set(categories.map(category => category.id));
+    console.log(uniqueButtonIds);
+    
     arrayWokrs.forEach(
         (work) => {
            categories.push(work.category);
