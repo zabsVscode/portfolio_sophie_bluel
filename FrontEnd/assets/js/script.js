@@ -72,6 +72,8 @@ function displayCategorysButtons(arrayWokrs) {
           displayWorks(works);
       });
       filters.appendChild(btn);
+      
+      /*btn.classList.add(filtersbutton);*/
   });
 }
     
