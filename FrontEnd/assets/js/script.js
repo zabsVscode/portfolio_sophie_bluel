@@ -59,7 +59,18 @@ function displayCategorysButtons(arrayWokrs) {
       const btn = document.createElement("button");
       btn.textContent = category.name;
       btn.dataset.id = category.id;
+     
+
+
+
+      
+
       btn.addEventListener("click", (e) => {
+        document.querySelectorAll("button.filtersbutton").forEach(button => {
+        button.classList.remove("checkedfilter");
+        });
+        e.target.classList.add("checkedfilter");
+
           let works = [];
           e.preventDefault();
           if (e.target.dataset.id !== "0") {
@@ -71,9 +82,8 @@ function displayCategorysButtons(arrayWokrs) {
           }
           displayWorks(works);
       });
+      btn.classList.add("filtersbutton");
       filters.appendChild(btn);
-      
-      /*btn.classList.add(filtersbutton);*/
   });
 }
     

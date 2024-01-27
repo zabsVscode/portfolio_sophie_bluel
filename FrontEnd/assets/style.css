@@ -125,16 +125,25 @@ li:hover {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
+	margin-bottom: 1.5em;
 }
 
 .filters {
 	width: auto;
-	height: 37px;
-	top: 812px;
-	left: 427px;
-	border-radius: 60px;
-	border: 1px;
+	height: 96px;
+	top: 725px;
+	left: 624px;
+
+	display: flex;
+    justify-content: center;
+    gap: 9px;
+
+	font-family: Syne;
+	font-size: 30px;
+	font-weight: 700;
+	line-height: 36px;
+	letter-spacing: 0em;
+	text-align: center;
 }
 
 .filtersbutton {
@@ -153,6 +162,12 @@ li:hover {
     letter-spacing: 0em;
     text-align: center;
 }
+
+.checkedfilter {
+	/* Styles pour le box checked */
+	background-color: #1D6154; /* Changez cette couleur selon votre préférence */
+	color: #fff; /* Changez cette couleur selon votre préférence */
+  }
 
 .gallery {
 	width: 100%;
