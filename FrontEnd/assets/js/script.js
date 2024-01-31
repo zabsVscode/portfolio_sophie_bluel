@@ -41,30 +41,22 @@ function displayWorks(arrayWorks) {
 /*Création des boutons, de leurs tableaux et de leurs appels individuel sans doublons*/
     
 function displayCategorysButtons(arrayWokrs) {
-  let categories = [
-      { name: 'Tous', id: 0 },
-      { name: 'Objets', id: 1 },
-      { name: 'Appartements', id: 2 },
-      { name: 'Hotels & restaurants', id: 3 }
-  ];
+  let categories = new Set( [
+       "Tous"
+  ]);
 
-  const uniqueButtonIds = new Set(categories.map(category => category.id));
+  
 
   arrayWokrs.forEach((work) => {
-      uniqueButtonIds.add(work.category.id); // Ajouter l'identifiant de la catégorie à l'ensemble
+      categories.add(
+       work.category.name);
   });
 
-  uniqueButtonIds.forEach((id) => { // Parcourir les identifiants uniques
-      const category = categories.find(cat => cat.id === id); // Trouver la catégorie correspondante
+  categories.forEach((categoryName) => {  
       const btn = document.createElement("button");
-      btn.textContent = category.name;
-      btn.dataset.id = category.id;
+      btn.textContent = categoryName;
+      btn.dataset.name = categoryName;
      
-
-
-
-      
-
       btn.addEventListener("click", (e) => {
         document.querySelectorAll("button.filtersbutton").forEach(button => {
         button.classList.remove("checkedfilter");
@@ -73,9 +65,9 @@ function displayCategorysButtons(arrayWokrs) {
 
           let works = [];
           e.preventDefault();
-          if (e.target.dataset.id !== "0") {
+          if (e.target.dataset.name !== "Tous") {
               works = worksData.filter(
-                  (work) => work.categoryId === parseInt(e.target.dataset.id)
+                  (work) => work.category.name === e.target.dataset.name
               );
           } else {
               works = worksData;
