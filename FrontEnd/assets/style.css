@@ -359,7 +359,7 @@ background-color: #FFF;
 	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
 }
 
-#Login input[type="submit"] {
+#Login button[type="submit"] {
 	width: 179px;
 	height: 36px;
 	flex-shrink: 0;

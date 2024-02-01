@@ -2,7 +2,7 @@ let form = document.querySelector("form");
 let baliseEmail = document.getElementById("email");
 let balisePassword = document.getElementById("password");
 
-//EMAIL
+/////// EMAIL
 
 function verifierEmail(balise) {
   let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z]{2,}");
@@ -48,9 +48,28 @@ form.addEventListener("submit", (event) => {
 });
 
 
+// FORMULAIRE
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
+  
   verifierEmail(baliseEmail);
+  verifierPassword(balisePassword);
+  
+  // Empêcher la soumission du formulaire si les champs ne sont pas valides
+  if (baliseEmail.classList.contains("error") || balisePassword.classList.contains("error")) {
+    return; // Stopper la fonction si les champs ne sont pas valides
+  }
+  
+  // Si les champs sont valides, vous pouvez ajouter ici le code pour vérifier la connexion et rediriger l'utilisateur vers la page d'accueil si nécessaire.
+  // Ici vous pouvez remplacer la vérification de connexion par votre propre logique de vérification, comme vérifier les informations dans une base de données
+  
+  // Exemple de vérification de connexion (remplacez-le par votre propre logique)
+  if (baliseEmail.value === 'utilisateur@example.com' && balisePassword.value === 'motdepasse') {
+    // Redirection vers la page d'accueil
+    window.location.href = 'page_accueil.html';
+  } else {
+    alert('Adresse e-mail ou mot de passe incorrect.');
+  }
 });
 
