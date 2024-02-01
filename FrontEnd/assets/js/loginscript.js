@@ -67,7 +67,7 @@ form.addEventListener("submit", (event) => {
   // Exemple de vérification de connexion (remplacez-le par votre propre logique)
   if (baliseEmail.value === 'utilisateur@example.com' && balisePassword.value === 'motdepasse') {
     // Redirection vers la page d'accueil
-    window.location.href = 'page_accueil.html';
+    window.location.href = 'index.html';
   } else {
     alert('Adresse e-mail ou mot de passe incorrect.');
   }
