@@ -46,20 +46,28 @@
             <form class="custom-form modal-wrapper js-modal-stop" action="index.html" method="post">
 				<button class="icon-close js-close-modal"><i class="fa-solid fa-x"></i></button>
 				
-                <h1>Ajout photo</h1>
-
-                
-                <label id="titlemodal">Titre</label>
-                <input id="inputtitle" name="Titre">
+                <p class="custom-title">Ajout photo</p>
+				
+				<label for="upload" class="custom-file-upload">
+					<i class="custom-icon fa-regular fa-image"></i>
+					<button class="addpicture" type="button">+ Ajouter photo</button>
+					<p class="sizemax">jpg, png : 4mo max</p>
+				</label>
+				<input class="displayNone" type="file" id="upload" multiple accept="image/*">
+				
+				
+                <label class="titletext" id="titlemodal">Titre</label>
+                <input class="titleproject" id="inputtitle" name="Titre">
 
                 <h3>Catégorie</h3>
-                <select id="dropdown">
+                <select class="categoriesproject" id="dropdown">
+					<option value="" selected>Sélectionner la catégorie</option>
                     <option value="Objet">Objet</option>
                     <option value="Appartement">Appartement</option>
                     <option value="Hotels & Restaurants">Hotels & Restaurants</option>
                 </select>
 
-                <input type="submit" value="Valider">
+                <input class="buttonvalidated" type="submit" value="Valider">
 				
             </form>
         

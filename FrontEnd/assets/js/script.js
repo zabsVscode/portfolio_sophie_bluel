@@ -122,3 +122,9 @@ document.querySelectorAll('.js-modal').forEach(a => {
     a.addEventListener('click', openModal);
 });
     
+
+/*Uplaod Photo*/
+
+document.querySelector('.addpicture').addEventListener('click', function() {
+  document.getElementById('upload').click();
+});
