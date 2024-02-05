@@ -244,19 +244,28 @@ padding:0;
 *{box-sizing: border-box;}
 
 .modal {
-position:fixed;
+position: fixed;
 
-display:flex;
-align-items:center;
-justify-content:center;
+display: none;
+align-items: center;
+justify-content: center;
 
-top:0;
-left:0;
+top: 35%;
+left: 26%;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.8);
+z-index: 1000;
+}
 
-width:100%;
-height:100%;
-
-background: rgba(0,0,0, 0.8);
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 999;
 }
 
 .modal-wrapper {
@@ -270,6 +279,32 @@ max-width: calc(100vw - 20px);
 max-height: calc(100vh - 20px);
 
 background-color: #FFF;
+}
+
+.custom-form{
+	display: flex;
+	flex-direction: column;
+	gap:25px;
+}
+
+.custom-title {
+	width: 150px;
+	height: 30px;
+	top: 720px;
+	left: 645px;
+
+}
+
+.icon-close {
+width: 24px;
+height: 24px;
+
+position: sticky;
+/*top: 686px;*/
+left: 981px;
+
+padding: 6px, 5.99px, 5.99px, 6px;
+
 }
 /****** MENU LOGIN ******/
 

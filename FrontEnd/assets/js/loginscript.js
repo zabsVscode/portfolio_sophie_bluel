@@ -41,7 +41,7 @@ form.addEventListener("submit", (event) => {
   verifierEmail(baliseEmail);
   verifierPassword(balisePassword);
   
-  // Empêcher la soumission du formulaire si les champs ne sont pas valides
+  
   if (baliseEmail.classList.contains("error") || balisePassword.classList.contains("error")) {
     event.preventDefault();
   }
@@ -56,9 +56,8 @@ form.addEventListener("submit", (event) => {
   verifierEmail(baliseEmail);
   verifierPassword(balisePassword);
   
-  // Empêcher la soumission du formulaire si les champs ne sont pas valides
   if (baliseEmail.classList.contains("error") || balisePassword.classList.contains("error")) {
-    return; // Stopper la fonction si les champs ne sont pas valides
+    return; 
   }
   
   // Si les champs sont valides, vous pouvez ajouter ici le code pour vérifier la connexion et rediriger l'utilisateur vers la page d'accueil si nécessaire.
