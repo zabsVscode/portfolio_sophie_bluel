@@ -234,6 +234,13 @@ footer nav ul {
 
 /****** MODALE ******/
 
+.custom-portfolio {
+	width: 84px;
+	height: 18px;
+	top: 735px;
+	left: 846px;
+}
+
 .modal {
 	position: fixed;
 
