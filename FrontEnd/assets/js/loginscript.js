@@ -62,6 +62,9 @@ form.addEventListener("submit", (event) => {
 });
 
   // Envoi de la requête POST pour authentification
+
+  ////////token au mauvaise endroit? manque l'url de l'api des login?
+
   let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
 
   let credentials = {
