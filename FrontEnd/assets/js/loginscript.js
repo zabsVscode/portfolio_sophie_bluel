@@ -61,3 +61,31 @@ form.addEventListener("submit", (event) => {
   }
 });
 
+  // Envoi de la requête POST pour authentification
+  let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+
+  let credentials = {
+    email: baliseEmail.value,
+    password: balisePassword.value
+  };
+
+  fetch("http://localhost:5678/api/users/login", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(credentials)
+  })
+  .then(response => response.json())
+  .then(data => {
+// Stockage du token dans le stockage local
+    localStorage.setItem('token', data.token);
+    console.log("Connexion réussie !");
+    // Redirection vers index.html
+    window.location.href = 'index.html';
+  })
+  .catch(error => {
+    console.error("Erreur de connexion :", error);
+    alert('Adresse e-mail ou mot de passe incorrect.');
+  });
+
