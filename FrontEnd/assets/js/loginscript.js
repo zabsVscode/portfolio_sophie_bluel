@@ -22,7 +22,6 @@ baliseEmail.addEventListener("change", () => {
 /////// PASSWORD
 
 function verifierPassword(balise) {
-  
   let passwordRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   if (balise.value !== "" && !passwordRegExp.test(balise.value)) {
     balise.classList.add("error");
@@ -38,36 +37,25 @@ balisePassword.addEventListener("change", () => {
 });
 
 form.addEventListener("submit", (event) => {
-  verifierEmail(baliseEmail);
-  verifierPassword(balisePassword);
-  
-  
-  if (baliseEmail.classList.contains("error") || balisePassword.classList.contains("error")) {
-    event.preventDefault();
-  }
-});
-
-
-// FORMULAIRE
-
-form.addEventListener("submit", (event) => {
   event.preventDefault();
   
   verifierEmail(baliseEmail);
   verifierPassword(balisePassword);
+
+  console.log("Email :", baliseEmail.value);
+  console.log("Mot de passe :", balisePassword.value);
   
   if (baliseEmail.classList.contains("error") || balisePassword.classList.contains("error")) {
     return; 
   }
   
-  // Si les champs sont valides, vous pouvez ajouter ici le code pour vérifier la connexion et rediriger l'utilisateur vers la page d'accueil si nécessaire.
-  // Ici vous pouvez remplacer la vérification de connexion par votre propre logique de vérification, comme vérifier les informations dans une base de données
-  
-  // Exemple de vérification de connexion (remplacez-le par votre propre logique)
-  if (baliseEmail.value === 'utilisateur@example.com' && balisePassword.value === 'motdepasse') {
+
+  if (baliseEmail.value === 'utilisateur@example.com' && balisePassword.value === 'Motdepasse123') {
     // Redirection vers la page d'accueil
+    console.log("Connexion réussie !");
     window.location.href = 'index.html';
   } else {
+    console.log("Adresse e-mail ou mot de passe incorrect.");
     alert('Adresse e-mail ou mot de passe incorrect.');
   }
 });
