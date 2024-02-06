@@ -48,10 +48,11 @@ form.addEventListener("submit", (event) => {
   if (baliseEmail.classList.contains("error") || balisePassword.classList.contains("error")) {
     return; 
   }
+
+  // Redirection vers index.html
   
 
   if (baliseEmail.value === 'utilisateur@example.com' && balisePassword.value === 'Motdepasse123') {
-    // Redirection vers la page d'accueil
     console.log("Connexion réussie !");
     window.location.href = 'index.html';
   } else {
