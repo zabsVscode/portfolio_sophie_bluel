@@ -558,16 +558,26 @@ form h3 {
 
 #Login button[type="submit"] {
 	width: 179px;
-	height: 36px;
-	flex-shrink: 0;
+    height: 36px;
 
-	position: sticky;
-    top: 445px;
-    left: 481px;
+    
+    color: white;
 
-	border: none;
-	border-radius: 60px;
-	background: #1D6154;
+    font-family: Syne;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: center;
+
+    border: none;
+    border-radius: 60px;
+    background: #1D6154;
+
+    position: relative;
+	left: 102px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 #Login a {
