@@ -36,59 +36,73 @@ balisePassword.addEventListener("change", () => {
   }
 });
 
+
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  
+
   verifierEmail(baliseEmail);
   verifierPassword(balisePassword);
 
   console.log("Email :", baliseEmail.value);
   console.log("Mot de passe :", balisePassword.value);
-  
+
   if (baliseEmail.classList.contains("error") || balisePassword.classList.contains("error")) {
-    return; 
+    return;
   }
 
   // Redirection vers index.html
-  
 
   if (baliseEmail.value === 'utilisateur@example.com' && balisePassword.value === 'Motdepasse123') {
     console.log("Connexion réussie !");
-    window.location.href = 'index.html';
+    // Redirection vers index.html
+    //window.location.href = 'index.html';
   } else {
     console.log("Adresse e-mail ou mot de passe incorrect.");
     alert('Adresse e-mail ou mot de passe incorrect.');
   }
 });
 
-  // Envoi de la requête POST pour authentification
+// Envoi de la requête POST pour authentification
 
-  ////////token au mauvaise endroit? manque l'url de l'api des login?
+let submitButton = document.getElementById("submit-button");
 
-  let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+submitButton.addEventListener("click", () => {
+  // Récupérer les valeurs actuelles des champs email et mot de passe
+  let email = baliseEmail.value;
+  let password = balisePassword.value;
 
+  // Créer un objet credentials avec ces valeurs
   let credentials = {
-    email: baliseEmail.value,
-    password: balisePassword.value
+    email: email,
+    password: password
   };
 
-  fetch("http://localhost:5678/api/users/login", {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(credentials)
-  })
-  .then(response => response.json())
-  .then(data => {
-// Stockage du token dans le stockage local
-    localStorage.setItem('token', data.token);
-    console.log("Connexion réussie !");
-    // Redirection vers index.html
-    window.location.href = 'index.html';
-  })
-  .catch(error => {
-    console.error("Erreur de connexion :", error);
-    alert('Adresse e-mail ou mot de passe incorrect.');
-  });
+  // Définir les en-têtes de la requête
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
 
+  // Définir les options de la requête
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: JSON.stringify(credentials),
+    redirect: 'follow'
+  };
+
+  // Envoyer la requête POST au serveur
+  fetch("http://localhost:5678/api/users/login", requestOptions)
+    .then(response => response.json())
+    .then(data => {
+      // Stocker le token dans le stockage local
+      localStorage.setItem('token', data.token);
+      console.log("Token reçu :", data.token); 
+      console.log("Connexion réussie !");
+      // Redirection vers index.html
+      // window.location.href = 'index.html';
+    })
+    .catch(error => {
+      console.error("Erreur de connexion :", error);
+      alert('Adresse e-mail ou mot de passe incorrect.');
+    });
+});
