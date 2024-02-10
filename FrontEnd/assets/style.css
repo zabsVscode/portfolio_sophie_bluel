@@ -318,10 +318,36 @@ footer nav ul {
 }
 
 .img-picture {
+    position: relative;
     width: 76.86px;
     height: 102.57px;
-    top: 796px;
 }
+
+.trash-icon {
+	position: relative;
+    transform: translate(53px, -96px);
+	color:#FFFFFF;
+	z-index:1;
+}
+
+.trash-icon::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    right: -5px; 
+    width: 20px; 
+    height: 20px; 
+    background-color: black;
+	z-index: -1;
+}
+
+
+.img-picture i {
+    position: absolute;
+    top: 96px; /* Ajustez la position verticale en pixels */
+    right: 169px; /* Ajustez la position horizontale en pixels */
+}
+
 
 .custom-form{
 	display: flex;

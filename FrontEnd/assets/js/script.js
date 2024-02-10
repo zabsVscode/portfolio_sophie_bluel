@@ -25,14 +25,27 @@ function displayProjects(arrayWorks, container) {
     container.innerHTML = ""; // Videz le contenu précédent
     arrayWorks.forEach((work) => {
         const figure = document.createElement("figure");
+        const containerImg = document.createElement("div"); // Créez un conteneur pour l'image et l'icône
         const img = document.createElement("img");
+        const icon = document.createElement("i"); // Créez un élément <i> pour l'icône
+
+        
+
+        icon.classList.add("fa-solid", "fa-trash-can"); // Ajoutez les classes de l'icône
         img.src = work.imageUrl;
         img.classList.add("img-picture")
         figure.classList.add("gallery-picture");
         figure.appendChild(img);
+
+        icon.classList.add("trash-icon");
+
+
+        containerImg.appendChild(img); // Ajoutez l'image au conteneur
+        containerImg.appendChild(icon); // Ajoutez l'icône au conteneur
+        figure.appendChild(containerImg); // Ajoutez le conteneur à la figur
         container.appendChild(figure);
     });
-    
+
     // Ajoutez l'affichage des projets dans la l'accueil en utilisant la fonction displayWorks
     if (container === gallery) {
         displayWorks(arrayWorks);
