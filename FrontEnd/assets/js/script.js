@@ -32,7 +32,8 @@ function displayProjects(arrayWorks, container) {
         figure.appendChild(img);
         container.appendChild(figure);
     });
-    // Ajoutez l'affichage des projets dans la galerie en utilisant la fonction displayWorks
+    
+    // Ajoutez l'affichage des projets dans la l'accueil en utilisant la fonction displayWorks
     if (container === gallery) {
         displayWorks(arrayWorks);
     }
