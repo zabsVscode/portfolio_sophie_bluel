@@ -1,42 +1,58 @@
 /*Variables*/
-
 const gallery = document.querySelector(".gallery");
 const filters = document.querySelector(".filters");
 let worksData = [];
 let set1 = new Set([0, 1, 2, 3]);
-/*Récupération des données du back-end*/
 
+/*Récupération des données du back-end*/
 var requestOptions = {
     method: 'GET',
     redirect: 'follow'
-  };
-  
+};
+
 fetch("http://localhost:5678/api/works", requestOptions)
     .then(response => response.json())
-      .then(result => {
-          worksData = result;
-          displayWorks(result);
-          displayCategorysButtons(result);
-      })
+    .then(result => {
+        worksData = result;
+        displayProjects(result, gallery); // Affichage des projets dans l'accueil/index
+        displayProjects(result, document.getElementById('galleryPictures')); // Affichage des projets dans la modale
+        displayCategorysButtons(result);
+    })
     .catch(error => console.log('error', error));
 
+/*Fonction pour afficher les projets*/
+function displayProjects(arrayWorks, container) {
+    container.innerHTML = ""; // Videz le contenu précédent
+    arrayWorks.forEach((work) => {
+        const figure = document.createElement("figure");
+        const img = document.createElement("img");
+        img.src = work.imageUrl;
+        img.classList.add("img-picture")
+        figure.classList.add("gallery-picture");
+        figure.appendChild(img);
+        container.appendChild(figure);
+    });
+    // Ajoutez l'affichage des projets dans la galerie en utilisant la fonction displayWorks
+    if (container === gallery) {
+        displayWorks(arrayWorks);
+    }
+}
 
 /*Affichage des works dans le DOM*/
 
 function displayWorks(arrayWorks) {
     gallery.innerHTML= "";
-  arrayWorks.forEach((work) => {
-    const figure = document.createElement("figure");
-    const img = document.createElement("img");
-    const figcaption = document.createElement("figcaption");
-    img.src = work.imageUrl;
-    figcaption.textContent = work.title;
-    figure.classList.add("galleryimg");
-    figure.appendChild(img);
-    figure.appendChild(figcaption);
-    gallery.appendChild(figure);
-    console.log(displayWorks);
-  });
+    arrayWorks.forEach((work) => {
+        const figure = document.createElement("figure");
+        const img = document.createElement("img");
+        const figcaption = document.createElement("figcaption");
+        img.src = work.imageUrl;
+        figcaption.textContent = work.title;
+        figure.classList.add("galleryimg");
+        figure.appendChild(img);
+        figure.appendChild(figcaption);
+        gallery.appendChild(figure);
+    });
 }
 
 /*Création des boutons, de leurs tableaux et de leurs appels individuel sans doublons*/
@@ -80,34 +96,7 @@ function displayCategorysButtons(arrayWokrs) {
   });
 }
 
-////// MODAL 1 ///////
-
-var requestOptions = {
-  method: 'GET',
-  redirect: 'follow'
-};
-
-fetch("http://localhost:5678/api/works", requestOptions)
-  .then(response => response.json())
-  .then(result => {
-    worksData = result;
-    displayWorks(result, document.getElementById('galleryPictures')); // Utilisez la nouvelle div pour afficher les works
-  })
-  .catch(error => console.log('error', error));
-
-function displayWorks(arrayWorks, container) {
-  container.innerHTML = ""; // Videz le contenu précédent
-  arrayWorks.forEach((work) => {
-    const figure = document.createElement("figure");
-    const img = document.createElement("img");
-    img.src = work.imageUrl;
-    img.classList.add("img-picture")
-    figure.classList.add("gallery-picture");
-    figure.appendChild(img);
-    container.appendChild(figure);
-  });
-}
-
+////MODAL 1 INCLU DANS LA LIGNE 1 à 54 /////
 
 /////// MODAL2 ////////
 
