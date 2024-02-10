@@ -294,11 +294,10 @@ footer nav ul {
 }
 
 .gallery-modale {
-    display: flex;
-    flex-wrap: wrap;
     justify-content: flex-start;
-    padding-left: 50px;
-    gap: 93px;
+	padding-left: 90px;
+    display: grid;
+    grid-template-columns: repeat(5, 87px);;
 }
 
 .gallery-picture {
@@ -311,8 +310,6 @@ footer nav ul {
 
 
 .form-column {
-    width: 619px;
-    height: 688px;
     top: 660px;
     left: 405px;
     border-radius: 10px;
@@ -343,6 +340,9 @@ footer nav ul {
     line-height: 30px;
     letter-spacing: 0em;
     text-align: center;
+
+	padding-bottom: 20px;
+
 }
 
 .displayNone {
