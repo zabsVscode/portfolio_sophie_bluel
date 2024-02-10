@@ -35,6 +35,7 @@ function displayWorks(arrayWorks) {
     figure.appendChild(img);
     figure.appendChild(figcaption);
     gallery.appendChild(figure);
+    console.log(displayWorks);
   });
 }
 
@@ -79,8 +80,36 @@ function displayCategorysButtons(arrayWokrs) {
   });
 }
 
+////// MODAL 1 ///////
 
-/////// MODAL ////////
+var requestOptions = {
+  method: 'GET',
+  redirect: 'follow'
+};
+
+fetch("http://localhost:5678/api/works", requestOptions)
+  .then(response => response.json())
+  .then(result => {
+    worksData = result;
+    displayWorks(result, document.getElementById('galleryPictures')); // Utilisez la nouvelle div pour afficher les works
+  })
+  .catch(error => console.log('error', error));
+
+function displayWorks(arrayWorks, container) {
+  container.innerHTML = ""; // Videz le contenu précédent
+  arrayWorks.forEach((work) => {
+    const figure = document.createElement("figure");
+    const img = document.createElement("img");
+    img.src = work.imageUrl;
+    img.classList.add("img-picture")
+    figure.classList.add("gallery-picture");
+    figure.appendChild(img);
+    container.appendChild(figure);
+  });
+}
+
+
+/////// MODAL2 ////////
 
 let modal = null;
 

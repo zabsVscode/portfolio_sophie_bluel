@@ -279,7 +279,55 @@ footer nav ul {
 	background-color: #FFF;
 }
 
-/*CUSTOM FORMULAIRE*/
+/*CUSTOM Modal/Formulaire*/
+
+.custom-title {
+	width: 173px;
+	height: 30px;
+	top: 720px;
+	left: 634px;
+
+	font-family: Work Sans;
+	font-size: 26px;
+	font-weight: 400;
+	line-height: 30px;
+	letter-spacing: 0em;
+	text-align: center;
+
+
+}
+.modal-content {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Crée 5 colonnes de largeur égale */
+    grid-template-rows: repeat(3, auto); /* Crée 3 lignes de hauteur automatique */
+    gap: 10px; /* Espacement entre les éléments */
+}
+
+.gallery-picture {
+    width: 100%; /* Ajustez la largeur de chaque image à 100% pour remplir la colonne */
+    height: auto; /* Hauteur automatique pour maintenir le rapport hauteur/largeur */
+}
+
+.gallery-picture {
+	display: flex;
+	flex-direction: row;
+}
+
+.form-column {
+	width: 630px;
+	height: 688px;
+	top: 660px;
+	left: 405px;
+	border-radius: 10px;
+
+}
+
+.img-picture {
+	width: 76.86px;
+	height: 102.57px;
+	top: 796px;
+	left: 510px;
+}
 
 .custom-form{
 	display: flex;
