@@ -25,13 +25,13 @@ function displayProjects(arrayWorks, container) {
     container.innerHTML = ""; // Videz le contenu précédent
     arrayWorks.forEach((work) => {
         const figure = document.createElement("figure");
-        const containerImg = document.createElement("div"); // Créez un conteneur pour l'image et l'icône
+        const containerImg = document.createElement("div"); 
         const img = document.createElement("img");
-        const icon = document.createElement("i"); // Créez un élément <i> pour l'icône
+        const icon = document.createElement("i"); 
 
         
 
-        icon.classList.add("fa-solid", "fa-trash-can"); // Ajoutez les classes de l'icône
+        icon.classList.add("fa-solid", "fa-trash-can"); 
         img.src = work.imageUrl;
         img.classList.add("img-picture")
         figure.classList.add("gallery-picture");
@@ -40,9 +40,9 @@ function displayProjects(arrayWorks, container) {
         icon.classList.add("trash-icon");
 
 
-        containerImg.appendChild(img); // Ajoutez l'image au conteneur
-        containerImg.appendChild(icon); // Ajoutez l'icône au conteneur
-        figure.appendChild(containerImg); // Ajoutez le conteneur à la figur
+        containerImg.appendChild(img);
+        containerImg.appendChild(icon);
+        figure.appendChild(containerImg);
         container.appendChild(figure);
     });
 
@@ -50,6 +50,16 @@ function displayProjects(arrayWorks, container) {
     if (container === gallery) {
         displayWorks(arrayWorks);
     }
+
+        // Redirection sur la modal2 lors d'un event click sur button"
+        document.querySelector('.addpicture').addEventListener('click', function() {
+            event.preventDefault();
+            // Masquer la modal1
+            document.getElementById('modal1').style.display = 'none';
+            // Afficher la modal2
+            document.getElementById('modal2').style.display = 'block';
+        });
+        
 }
 
 /*Affichage des works dans le DOM*/
@@ -142,6 +152,8 @@ const closeModal = function (e) {
     modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation);
     modal = null;
 
+    window.location = index.html;
+
 
 }
 
@@ -153,10 +165,12 @@ const stopPropagation = function (e) {
 document.querySelectorAll('.js-modal').forEach(a => {
     a.addEventListener('click', openModal);
 });
-    
 
-/*Uplaod Photo*/
 
-document.querySelector('.addpicture').addEventListener('click', function() {
-  document.getElementById('upload').click();
-});
+
+
+/*Upload Photo*/
+
+document.querySelector('#modal2 .addpicture').addEventListener('click', function() {
+    document.getElementById('upload').click();
+  });

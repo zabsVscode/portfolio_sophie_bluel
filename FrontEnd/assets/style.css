@@ -348,6 +348,26 @@ footer nav ul {
     right: 169px; /* Ajustez la position horizontale en pixels */
 }
 
+.decoration-ligne {
+	width: 420px;
+    height: 0;
+    position: absolute;
+    top: 461px;
+    left: 115px;
+    border-top: 1px solid #B3B3B3;
+    background-color: #B3B3B3;
+}
+
+.decoration-ligne-modal2 {
+	width: 420px; 
+	height: 0; 
+	position: absolute; 
+	top: 545px; 
+	left: 92px; 
+	border-top: 1px solid #B3B3B3; 
+	background-color: #B3B3B3;
+}
+
 
 .custom-form{
 	display: flex;
