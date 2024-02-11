@@ -46,6 +46,7 @@ function displayProjects(arrayWorks, container) {
         container.appendChild(figure);
     });
 
+    
     // Ajoutez l'affichage des projets dans la l'accueil en utilisant la fonction displayWorks
     if (container === gallery) {
         displayWorks(arrayWorks);
@@ -151,11 +152,13 @@ const closeModal = function (e) {
     modal.querySelector('.js-close-modal').removeEventListener('click', closeModal);
     modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation);
     modal = null;
-
-    window.location = index.html;
-
-
 }
+
+/* Function pour retourner à la modal1 depuis la modal2 */
+document.querySelector('.back-to-modal1').addEventListener('click', function() {
+    document.getElementById('modal2').style.display = 'none';
+    document.getElementById('modal1').style.display = 'block';
+});
 
 const stopPropagation = function (e) {
     e.stopPropagation();
