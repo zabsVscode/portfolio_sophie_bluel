@@ -52,6 +52,24 @@ function displayProjects(arrayWorks, container) {
         displayWorks(arrayWorks);
     }
 
+
+    // Sélection de tout les bouton corbeille, puis remove project
+    const trashIcons = document.querySelectorAll('.trash-icon');
+
+    // Ajoutez un gestionnaire d'événements à chaque bouton de suppression
+        trashIcons.forEach(trashIcon => {
+        trashIcon.addEventListener('click', () => {
+        // Obtenir l'ID du projet à partir de l'attribut data-id du parent du bouton
+        const id_projet = trashIcon.parentElement.dataset.id;
+        
+        // Supprimer le projet
+        const galleryPicture = trashIcon.closest('.gallery-picture');
+        galleryPicture.remove();
+    });
+});
+
+    
+
         // Redirection sur la modal2 lors d'un event click sur button"
         document.querySelector('.addpicture').addEventListener('click', function() {
             event.preventDefault();
@@ -59,6 +77,17 @@ function displayProjects(arrayWorks, container) {
             document.getElementById('modal1').style.display = 'none';
             // Afficher la modal2
             document.getElementById('modal2').style.display = 'block';
+        });
+
+       // Redirection sur la modal1 lors d'un event click sur la flèche back
+
+        document.querySelector('.back-to-modal1').addEventListener('click', function() {
+            event.preventDefault();
+            // Masquer la modal1
+            document.getElementById('modal2').style.display = 'none';
+            // Afficher la modal2 & Reset la modal2 lors du back
+            document.getElementById('modal1').style.display = 'block';
+            document.getElementById('image-preview').innerHTML = '';
         });
         
 }
@@ -125,7 +154,29 @@ function displayCategorysButtons(arrayWokrs) {
 
 /////// MODAL2 ////////
 
+const stopPropagation = function (e) {
+    e.stopPropagation();
+}
+
 let modal = null;
+
+/* Gestion de la fermeture de la modal "1" lors d'un clique à l'ext*/
+window.addEventListener('click', function(event) {
+    if (modal !== null && event.target === modal) {
+        closeModal('#' + modal.id);
+        window.location.href = 'index.html'; // Redirection vers la page d'accueil après la fermeture de la modal
+    }
+});
+
+/* Gestionnaire d'événements pour la fermeture de la modal "2" lors d'un clique à l'ext*/
+window.addEventListener('click', function(event) {
+    const modal2 = document.getElementById('modal2');
+    if (modal2 !== null && event.target === modal2) {
+        closeModal('#modal2');
+        window.location.href = 'index.html'; // Redirection vers la page d'accueil après la fermeture de la modal
+    }
+});
+
 
 /* Function d'ouverture de la modal */
 const openModal = function(e) {
@@ -138,31 +189,46 @@ const openModal = function(e) {
   modal.addEventListener('click', closeModal);
   modal.querySelector('.js-close-modal').addEventListener('click', closeModal);
   modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation);
+  
 }
 
 
-/* Function de fermeture de la modal */
-const closeModal = function (e) {
+/* Gestionnaire d'événements pour le bouton de fermeture de la première modal */
+document.querySelector('#modal1 .js-close-modal').addEventListener('click', function(event) {
+    event.preventDefault();
+    closeModal('#modal1');
+    window.location.href = 'index.html';
+});
+
+/* Gestionnaire d'événements pour le bouton de fermeture de la deuxième modal */
+document.querySelector('#modal2 .js-close-modal').addEventListener('click', function(event) {
+    event.preventDefault();
+    closeModal('#modal2');
+    window.location.href = 'index.html';
+});
+
+/* Fonction pour fermer une modal spécifique */
+function closeModal(modalId) {
+    const modal = document.querySelector(modalId);
     if (modal === null) return;
-    e.preventDefault();
     modal.style.display = 'none';
     modal.setAttribute('aria-hidden', 'true');
     modal.removeAttribute('aria-modal');
     modal.removeEventListener('click', closeModal);
     modal.querySelector('.js-close-modal').removeEventListener('click', closeModal);
     modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation);
-    modal = null;
 }
 
-/* Function pour retourner à la modal1 depuis la modal2 */
-document.querySelector('.back-to-modal1').addEventListener('click', function() {
+
+/* Event function pour retourner à la modal1 depuis la modal2 */
+document.querySelector('#backModal1').addEventListener('click', function() {
     document.getElementById('modal2').style.display = 'none';
     document.getElementById('modal1').style.display = 'block';
 });
+;
 
-const stopPropagation = function (e) {
-    e.stopPropagation();
-}
+
+
 
 /* Focus des éléments */
 document.querySelectorAll('.js-modal').forEach(a => {
@@ -177,3 +243,20 @@ document.querySelectorAll('.js-modal').forEach(a => {
 document.querySelector('#modal2 .addpicture').addEventListener('click', function() {
     document.getElementById('upload').click();
   });
+
+  // Fonction pour précharger et afficher l'image sélectionnée
+document.getElementById('upload').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('image-preview');
+            preview.innerHTML = ""; // Supprimer le contenu précédent
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.classList.add('preview-image');
+            preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    }
+});

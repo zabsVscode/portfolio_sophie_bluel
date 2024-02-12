@@ -44,7 +44,7 @@
 			<a href="#modal1" class="custom-portfolio js-modal"><i class="fa-regular fa-pen-to-square"></i>modifier</a>
 			<aside id="modal1" class="modal" aria-hidden="true" aria-labelledby="titlemodal">
 				<form class="form-column modal-wrapper js-modal-stop" action="index.html" method="post">
-					<button class="icon-close js-close-modal"><i class="fa-solid fa-x"></i></button>
+					<button type="button"  class="icon-close js-close-modal"><i class="fa-solid fa-x"></i></button>
 					<p class="custom-title">Galerie photo</p>
 					
 					<div class="gallery-modale" id="galleryPictures"></div>
@@ -59,17 +59,23 @@
 		<aside id="modal2" class="modal" aria-hidden="true" aria-labelledby="titlemodal">
 			
             <form class="custom-form modal-wrapper js-modal-stop" action="index.html" method="post">
-				<button class="back-to-modal1 arrow-back"><i class="fa-solid fa-arrow-left"></i></button>
+				<div>
+				<button id="backModal1" class="back-to-modal1 arrow-back"><i class="fa-solid fa-arrow-left"></i></button>
 				<button class="icon-close js-close-modal"><i class="fa-solid fa-x"></i></button>
+				</div>
+				
 				
                 <p class="custom-title">Ajout photo</p>
 				
 				<label for="upload" class="custom-file-upload">
+					<div id="image-preview"></div>
 					<i class="custom-icon fa-regular fa-image"></i>
 					<button class="addpicture" type="button">+ Ajouter photo</button>
 					<p class="sizemax">jpg, png : 4mo max</p>
 				</label>
 				<input class="displayNone" type="file" id="upload" multiple accept="image/*">
+				
+
 				
 				
                 <label class="titletext" id="titlemodal">Titre</label>
