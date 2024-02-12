@@ -63,7 +63,11 @@ form.addEventListener("submit", (event) => {
   }
 });
 
-// Envoi de la requête POST pour authentification
+
+
+
+
+// Envoi de la requête POST pour authentification & générer le token
 
 let submitButton = document.getElementById("submit-button");
 
@@ -91,18 +95,32 @@ submitButton.addEventListener("click", () => {
   };
 
   // Envoyer la requête POST au serveur
-  fetch("http://localhost:5678/api/users/login", requestOptions)
-    .then(response => response.json())
-    .then(data => {
+
+fetch("http://localhost:5678/api/users/login", requestOptions)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Une erreur s\'est produite lors de la connexion au serveur.');
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Vérifier si la réponse contient un token valide
+    if (data && data.token) {
       // Stocker le token dans le stockage local
       localStorage.setItem('token', data.token);
-      console.log("Token reçu :", data.token); 
+      console.log("Token reçu :", data.token);
       console.log("Connexion réussie !");
       // Redirection vers index.html
-      // window.location.href = 'index.html';
-    })
-    .catch(error => {
-      console.error("Erreur de connexion :", error);
+      window.location.href = 'index.html';
+    } else {
+      console.error("Token non valide dans la réponse du serveur");
       alert('Adresse e-mail ou mot de passe incorrect.');
-    });
+    }
+  })
+  .catch(error => {
+    console.error("Erreur de connexion :", error);
+    alert('Une erreur s\'est produite lors de la connexion au serveur. Veuillez réessayer plus tard.');
+  });
+
+
 });

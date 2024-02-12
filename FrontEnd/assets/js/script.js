@@ -52,7 +52,6 @@ function displayProjects(arrayWorks, container) {
         displayWorks(arrayWorks);
     }
 
-
     // Sélection de tout les bouton corbeille, puis remove project
     const trashIcons = document.querySelectorAll('.trash-icon');
 
@@ -92,6 +91,52 @@ function displayProjects(arrayWorks, container) {
         
 }
 
+
+    // Selection du boutton valider, puis récupère les informations du projet pour le BackEnd
+
+    document.querySelector('.buttonvalidated').addEventListener('click', function(event) {
+        event.preventDefault(); // Empêcher le comportement par défaut du bouton
+    
+        // Récupérer les informations du nouveau projet depuis les champs de saisie
+        const title = document.getElementById('inputtitle').value;
+        const category = document.getElementById('dropdown').value;
+    
+        // Récupérer l'image téléchargée
+        const fileInput = document.getElementById('upload');
+        //vérifie si aucun fichier n'a était sélectionné, si true ERROR
+        const imageFile = fileInput.files[0];
+        
+        if (!imageFile) {
+            console.error("Aucune image sélectionnée");
+            return;
+        }
+    
+        // Créer un objet FormData pour envoyer les données, y compris le fichier image
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        formData.append('title', title);
+        formData.append('category', category);
+    
+        // Envoyer les informations du nouveau projet au serveur via une requête POST
+        fetch("http://localhost:5678/api/works", {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            // Si la requête est réussie, ajout du nouveau projet à la galerie côté client
+            worksData.push(result); // Ajout du projet aux données existantes
+            displayProjects(worksData, gallery); // Mettre à jour l'affichage de la galerie
+            closeModal('#modal2'); // Fermer la modal2 après l'ajout du projet
+        })
+        .catch(error => {
+            console.error('Erreur lors de l\'envoi de la requête POST:', error);
+            // Gestion des erreurs : afficher un message d'erreur à l'utilisateur, par exemple
+            alert('Une erreur est survenue lors de l\'envoi du projet. Veuillez réessayer plus tard.');
+        });
+    });
+    
+
 /*Affichage des works dans le DOM*/
 
 function displayWorks(arrayWorks) {
@@ -108,6 +153,8 @@ function displayWorks(arrayWorks) {
         gallery.appendChild(figure);
     });
 }
+
+
 
 /*Création des boutons, de leurs tableaux et de leurs appels individuel sans doublons*/
     
