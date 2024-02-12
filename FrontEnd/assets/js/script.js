@@ -93,6 +93,7 @@ function displayProjects(arrayWorks, container) {
 
 
     // Selection du boutton valider, puis récupère les informations du projet pour le BackEnd
+    //(besoin du token du login)
 
     document.querySelector('.buttonvalidated').addEventListener('click', function(event) {
         event.preventDefault(); // Empêcher le comportement par défaut du bouton
