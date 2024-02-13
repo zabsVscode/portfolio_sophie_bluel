@@ -93,14 +93,14 @@ function displayProjects(arrayWorks, container) {
 
 
     // Selection du boutton valider, puis récupère les informations du projet pour le BackEnd
-    //(besoin du token du login)
+    //
 
     document.querySelector('.buttonvalidated').addEventListener('click', function(event) {
         event.preventDefault(); // Empêcher le comportement par défaut du bouton
     
         // Récupérer les informations du nouveau projet depuis les champs de saisie
         const title = document.getElementById('inputtitle').value;
-        const category = document.getElementById('dropdown').value;
+        const category = parseInt(document.getElementById('dropdown').value);
     
         // Récupérer l'image téléchargée
         const fileInput = document.getElementById('upload');
@@ -117,11 +117,17 @@ function displayProjects(arrayWorks, container) {
         formData.append('image', imageFile);
         formData.append('title', title);
         formData.append('category', category);
+
+        let myHeaders = new Headers();
+  
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
     
         // Envoyer les informations du nouveau projet au serveur via une requête POST
         fetch("http://localhost:5678/api/works", {
             method: 'POST',
+            headers: myHeaders,
             body: formData
+            
         })
         .then(response => response.json())
         .then(result => {
