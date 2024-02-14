@@ -52,18 +52,35 @@ function displayProjects(arrayWorks, container) {
         displayWorks(arrayWorks);
     }
 
-    // Sélection de tout les bouton corbeille, puis remove project
-    const trashIcons = document.querySelectorAll('.trash-icon');
+// Sélectionner tous les boutons corbeille
+const trashIcons = document.querySelectorAll('.trash-icon');
 
-    // Ajoutez un gestionnaire d'événements à chaque bouton de suppression
-        trashIcons.forEach(trashIcon => {
-        trashIcon.addEventListener('click', () => {
+// Ajouter un gestionnaire d'événements à chaque bouton de suppression
+trashIcons.forEach(trashIcon => {
+    trashIcon.addEventListener('click', () => {
         // Obtenir l'ID du projet à partir de l'attribut data-id du parent du bouton
         const id_projet = trashIcon.parentElement.dataset.id;
-        
-        // Supprimer le projet
-        const galleryPicture = trashIcon.closest('.gallery-picture');
-        galleryPicture.remove();
+
+        // Supprimer le projet de l'API en envoyant une requête DELETE
+        fetch("http://localhost:5678/api/works/{id}", {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Si la suppression côté serveur est réussie, supprimer également l'élément de la page
+                const galleryPicture = trashIcon.closest('.gallery-picture');
+                galleryPicture.remove();
+            } else {
+                // Gérer l'erreur si la suppression échoue
+                console.error('La suppression du projet a échoué');
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la suppression du projet:', error);
+        });
     });
 });
 
@@ -214,7 +231,7 @@ const stopPropagation = function (e) {
 
 let modal = null;
 
-/* Gestion de la fermeture de la modal "1" lors d'un clique à l'ext*/
+/* Gestion de la fermeture de la modal "1" lors d'un clique à l'ext */
 window.addEventListener('click', function(event) {
     if (modal !== null && event.target === modal) {
         closeModal('#' + modal.id);
@@ -222,7 +239,7 @@ window.addEventListener('click', function(event) {
     }
 });
 
-/* Gestionnaire d'événements pour la fermeture de la modal "2" lors d'un clique à l'ext*/
+/* Gestionnaire d'événements pour la fermeture de la modal "2" lors d'un clique à l'ext */
 window.addEventListener('click', function(event) {
     const modal2 = document.getElementById('modal2');
     if (modal2 !== null && event.target === modal2) {
@@ -231,21 +248,18 @@ window.addEventListener('click', function(event) {
     }
 });
 
-
 /* Function d'ouverture de la modal */
 const openModal = function(e) {
-  e.preventDefault();
-  const target = document.querySelector(e.target.getAttribute('href'));
-  target.style.display = 'block';
-  target.removeAttribute('aria-hidden');
-  target.setAttribute('aria-modal', 'true');
-  modal = target;
-  modal.addEventListener('click', closeModal);
-  modal.querySelector('.js-close-modal').addEventListener('click', closeModal);
-  modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation);
-  
+    e.preventDefault();
+    const target = document.querySelector(e.target.getAttribute('href'));
+    target.style.display = 'block';
+    target.removeAttribute('aria-hidden');
+    target.setAttribute('aria-modal', 'true');
+    modal = target;
+    modal.addEventListener('click', closeModal);
+    modal.querySelector('.js-close-modal').addEventListener('click', closeModal);
+    modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation);
 }
-
 
 /* Gestionnaire d'événements pour le bouton de fermeture de la première modal */
 document.querySelector('#modal1 .js-close-modal').addEventListener('click', function(event) {
@@ -273,32 +287,23 @@ function closeModal(modalId) {
     modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation);
 }
 
-
 /* Event function pour retourner à la modal1 depuis la modal2 */
 document.querySelector('#backModal1').addEventListener('click', function() {
     document.getElementById('modal2').style.display = 'none';
     document.getElementById('modal1').style.display = 'block';
 });
-;
-
-
-
 
 /* Focus des éléments */
 document.querySelectorAll('.js-modal').forEach(a => {
     a.addEventListener('click', openModal);
 });
 
-
-
-
 /*Upload Photo*/
-
 document.querySelector('#modal2 .addpicture').addEventListener('click', function() {
     document.getElementById('upload').click();
-  });
+});
 
-  // Fonction pour précharger et afficher l'image sélectionnée
+// Fonction pour précharger et afficher l'image sélectionnée
 document.getElementById('upload').addEventListener('change', function(e) {
     const file = e.target.files[0];
     if (file) {
@@ -314,3 +319,32 @@ document.getElementById('upload').addEventListener('change', function(e) {
         reader.readAsDataURL(file);
     }
 });
+
+////// Dynamic Select ////////
+
+/* Création d'un tableau contenant les options du select */
+const categories = [
+    { value: "", text: "Sélectionner la catégorie" },
+    { value: "1", text: "Objet" },
+    { value: "2", text: "Appartement" },
+    { value: "3", text: "Hotels & Restaurants" }
+];
+
+/* Création du select */
+const select = document.createElement("select");
+select.classList.add("categoriesproject");
+select.id = "dropdown";
+
+/* Ajout des options au select */
+categories.forEach(category => {
+    const option = document.createElement("option");
+    option.value = category.value;
+    option.text = category.text;
+    select.appendChild(option);
+});
+
+/* Sélection de l'élément après lequel le select doit être inséré (le h3) */
+const h3Categorie = document.querySelector('#modal2 h3');
+
+/* Insertion du select après le titre "Catégorie" */
+h3Categorie.insertAdjacentElement('afterend', select);
