@@ -28,18 +28,18 @@ function displayProjects(arrayWorks, container) {
         const containerImg = document.createElement("div"); 
         const img = document.createElement("img");
         const icon = document.createElement("i"); 
-
-        
-
+    
+        // Ajoutez l'attribut data-id avec la valeur de l'ID du projet à l'élément figure
+        figure.dataset.id = work.id;
+    
         icon.classList.add("fa-solid", "fa-trash-can"); 
         img.src = work.imageUrl;
         img.classList.add("img-picture")
         figure.classList.add("gallery-picture");
         figure.appendChild(img);
-
+    
         icon.classList.add("trash-icon");
-
-
+    
         containerImg.appendChild(img);
         containerImg.appendChild(icon);
         figure.appendChild(containerImg);
@@ -52,13 +52,18 @@ function displayProjects(arrayWorks, container) {
         displayWorks(arrayWorks);
     }
 
-// Sélectionner tous les boutons corbeille
-const trashIcons = document.querySelectorAll('.trash-icon');
 
-trashIcons.forEach(trashIcon => {
-    trashIcon.addEventListener('click', () => {
+// Sélectionner la galerie de la modal1
+const galleryModal1 = document.getElementById('galleryPictures');
+
+// Ajouter un écouteur d'événements à la galerie de la modal1
+galleryModal1.addEventListener('click', (event) => {
+    // Vérifier si l'élément cliqué est un bouton corbeille
+    if (event.target.classList.contains('trash-icon')) {
         // Obtenir l'ID du projet à partir de l'attribut data-id du parent du bouton
-        const id_projet = trashIcon.parentElement.dataset.id;
+        const id_projet = parseInt(event.target.closest('.gallery-picture').dataset.id);
+
+        console.log("ID du projet à supprimer :", id_projet);
 
         // Supprimer le projet de l'API en envoyant une requête DELETE
         const requestOptions = {
@@ -73,7 +78,7 @@ trashIcons.forEach(trashIcon => {
             .then(response => {
                 if (response.ok) {
                     // Si la suppression côté serveur est réussie, supprimer également l'élément de la page
-                    const galleryPicture = trashIcon.closest('.gallery-picture');
+                    const galleryPicture = event.target.closest('.gallery-picture');
                     galleryPicture.remove();
                 } else {
                     // Gérer l'erreur si la suppression échoue
@@ -83,8 +88,14 @@ trashIcons.forEach(trashIcon => {
             .catch(error => {
                 console.error('Erreur lors de la suppression du projet:', error);
             });
-    });
+    }
 });
+
+
+
+
+
+
 
 
 
