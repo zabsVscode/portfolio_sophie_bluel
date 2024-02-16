@@ -55,34 +55,39 @@ function displayProjects(arrayWorks, container) {
 // Sélectionner tous les boutons corbeille
 const trashIcons = document.querySelectorAll('.trash-icon');
 
-// Ajouter un gestionnaire d'événements à chaque bouton de suppression
 trashIcons.forEach(trashIcon => {
     trashIcon.addEventListener('click', () => {
         // Obtenir l'ID du projet à partir de l'attribut data-id du parent du bouton
         const id_projet = trashIcon.parentElement.dataset.id;
 
         // Supprimer le projet de l'API en envoyant une requête DELETE
-        fetch("http://localhost:5678/api/works/{id}", {
+        const requestOptions = {
             method: 'DELETE',
+            redirect: 'follow',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
-        })
-        .then(response => {
-            if (response.ok) {
-                // Si la suppression côté serveur est réussie, supprimer également l'élément de la page
-                const galleryPicture = trashIcon.closest('.gallery-picture');
-                galleryPicture.remove();
-            } else {
-                // Gérer l'erreur si la suppression échoue
-                console.error('La suppression du projet a échoué');
-            }
-        })
-        .catch(error => {
-            console.error('Erreur lors de la suppression du projet:', error);
-        });
+        };
+
+        fetch(`http://localhost:5678/api/works/${id_projet}`, requestOptions)
+            .then(response => {
+                if (response.ok) {
+                    // Si la suppression côté serveur est réussie, supprimer également l'élément de la page
+                    const galleryPicture = trashIcon.closest('.gallery-picture');
+                    galleryPicture.remove();
+                } else {
+                    // Gérer l'erreur si la suppression échoue
+                    console.error('La suppression du projet a échoué');
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors de la suppression du projet:', error);
+            });
     });
 });
+
+
+
 
     
 
