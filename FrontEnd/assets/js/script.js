@@ -4,6 +4,18 @@ const filters = document.querySelector(".filters");
 let worksData = [];
 let set1 = new Set([0, 1, 2, 3]);
 
+// Sélection de l'élément li "log-out"
+var logOutElement = document.querySelector('ul li:nth-child(3)');
+
+logOutElement.classList.add('li-pointer');
+// Ajout d'un gestionnaire d'événements au clic sur l'élément log-out
+logOutElement.addEventListener('click', function() {
+
+    // Redirection vers la page index.html
+    window.location.href = "login.html";
+});
+
+
 /*Récupération des données du back-end*/
 var requestOptions = {
     method: 'GET',
