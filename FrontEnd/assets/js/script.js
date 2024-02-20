@@ -283,7 +283,45 @@ galleryModal1.addEventListener('click', (event) => {
             alert('Une erreur est survenue lors de l\'envoi du projet. Veuillez réessayer plus tard.');
         });
     });
-    
+
+// Fonction pour créer et insérer les options du select
+function createSelectOptions(select, categories) {
+    categories.forEach(category => {
+        const option = document.createElement("option");
+        option.value = category.value;
+        option.text = category.text;
+        select.appendChild(option);
+    });
+}
+
+// Récupération des catégories depuis l'API
+fetch('http://localhost:5678/api/categories')
+    .then(response => response.json())
+    .then(data => {
+        // Traitement des données récupérées pour créer les options du menu déroulant
+        const categories = data.map(category => ({
+            value: category.id,
+            text: category.name
+        }));
+
+        // Création du menu déroulant
+        const select = document.createElement("select");
+        select.classList.add("categoriesproject");
+        select.id = "dropdown";
+
+        // Ajout des options au menu déroulant
+        createSelectOptions(select, categories);
+
+        // Insertion du menu déroulant dans le DOM
+        const h3Categorie = document.querySelector('#modal2 h3');
+        h3Categorie.insertAdjacentElement('afterend', select);
+    })
+    .catch(error => {
+        // Gestion des erreurs
+        console.error('Erreur lors de la récupération des catégories depuis l\'API:', error);
+    });
+
+        
 
 /*Affichage des works dans le DOM*/
 
@@ -422,6 +460,22 @@ document.querySelectorAll('.js-modal').forEach(a => {
     a.addEventListener('click', openModal);
 });
 
+// Fonction pour mettre à jour l'affichage des éléments en fonction de l'état de connexion
+function updateElementVisibility() {
+    const loggedIn = checkLoginStatus(); // Vérifie si l'utilisateur est connecté
+    const modifierLink = document.querySelector('.custom-portfolio.js-modal');
+
+    if (loggedIn) {
+        modifierLink.style.display = 'block'; // Afficher le lien de modification
+    } else {
+        modifierLink.style.display = 'none'; // Masquer le lien de modification
+    }
+}
+
+// Appeler la fonction pour mettre à jour l'affichage au chargement de la page
+updateElementVisibility();
+
+
 /*Upload Photo*/
 document.querySelector('#modal2 .addpicture').addEventListener('click', function() {
     document.getElementById('upload').click();
@@ -443,32 +497,3 @@ document.getElementById('upload').addEventListener('change', function(e) {
         reader.readAsDataURL(file);
     }
 });
-
-////// Dynamic Select ////////
-
-/* Création d'un tableau contenant les options du select */
-const categories = [
-    { value: "", text: "Sélectionner la catégorie" },
-    { value: "1", text: "Objet" },
-    { value: "2", text: "Appartement" },
-    { value: "3", text: "Hotels & Restaurants" }
-];
-
-/* Création du select */
-const select = document.createElement("select");
-select.classList.add("categoriesproject");
-select.id = "dropdown";
-
-/* Ajout des options au select */
-categories.forEach(category => {
-    const option = document.createElement("option");
-    option.value = category.value;
-    option.text = category.text;
-    select.appendChild(option);
-});
-
-/* Sélection de l'élément après lequel le select doit être inséré (le h3) */
-const h3Categorie = document.querySelector('#modal2 h3');
-
-/* Insertion du select après le titre "Catégorie" */
-h3Categorie.insertAdjacentElement('afterend', select);
