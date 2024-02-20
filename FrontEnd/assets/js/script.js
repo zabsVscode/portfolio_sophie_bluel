@@ -4,6 +4,7 @@ const filters = document.querySelector(".filters");
 let worksData = [];
 let set1 = new Set([0, 1, 2, 3]);
 
+
 // Création de la div pour le bandeau d'édition
 const bandeauEditionDiv = document.createElement("div");
 bandeauEditionDiv.classList.add("bandeau-edition");
@@ -12,42 +13,63 @@ bandeauEditionDiv.classList.add("bandeau-edition");
 const penIcon = document.createElement("i");
 penIcon.classList.add("fa-regular", "fa-pen-to-square", "bandeau-edition_colorIcon");
 
-// Création du paragraphe pour le texte "Mode édition"
+// Création du p pour le texte "Mode édition"
 const modeEditionText = document.createElement("p");
 modeEditionText.textContent = "Mode édition";
 modeEditionText.classList.add("bandeau-edition_text");
 
-// Ajout de l'icône et du texte dans la div du bandeau d'édition
+// Ajout de l'icône et du texte dans la div bandeau d'édition
 bandeauEditionDiv.appendChild(penIcon);
 bandeauEditionDiv.appendChild(modeEditionText);
 
-// Sélection du body (ou tout autre élément parent où vous souhaitez insérer le bandeau d'édition)
+
+// Ajouterun event à "bandeauEditionDiv" pour ouvrir la modal
+bandeauEditionDiv.addEventListener('click', openModalEdition);
+// Fonction pour ouvrir la modal lorsque "Mode édition" est cliqué
+function openModalEdition(event) {
+    event.preventDefault(); // Empêcher le comportement par défaut du lien
+
+    if (checkLoginStatus()) { // Vérifier si l'utilisateur est connecté
+        const modal = document.getElementById('modal1');
+        modal.style.display = 'block';
+
+        // Ajouter un event pour fermer la modal en cliquant en dehors
+        window.addEventListener('click', closeModalEdition);
+    } else {
+        // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+        window.location.href = "login.html";
+    }
+}
+
+// Fonction pour fermer la modal si clique en dehors
+function closeModalEdition(event) {
+    const modal = document.getElementById('modal1');
+    if (event.target === modal) {
+        modal.style.display = 'none'; // Fermer la modal si clique en dehors
+        window.removeEventListener('click', closeModalEdition); // Supprimer l'écouteur d'événements
+    }
+}
+
+// Sélection du body
 const bodyElement = document.querySelector("body");
 
 // Sélection du header
 const headerElement = document.querySelector("header");
 
-// Insertion du bandeau d'édition avant le header
-bodyElement.insertBefore(bandeauEditionDiv, headerElement);
+// Insérer le bandeau d'édition avant le header si l'utilisateur est connecté
+if (checkLoginStatus()) {
+    bodyElement.insertBefore(bandeauEditionDiv, headerElement);
+}
+
+
+
+
+///////VERIFICATION SI L'USER EST CONNECTEE ET MODIFICATION EN FONCTION DE
 
 // Fonction pour vérifier si l'utilisateur est connecté
 function checkLoginStatus() {
     const token = localStorage.getItem('token'); // Vérifie si un jeton d'authentification est présent dans le stockage local
     return token !== null && token !== undefined; // Retourne true si un jeton est trouvé, sinon false
-}
-
-// Fonction pour basculer entre l'état de connexion et de déconnexion
-function toggleLogin() {
-    const isLoggedIn = checkLoginStatus(); // Vérifie si l'utilisateur est connecté
-
-    if (isLoggedIn) {
-        // Si l'utilisateur est connecté, supprimer le jeton d'authentification
-        localStorage.removeItem('token');
-        // Rediriger vers la page de connexion
-        window.location.href = "login.html";
-    }
-
-    updateNavbar(); // Mettre à jour l'affichage de la barre de navigation
 }
 
 // Fonction pour mettre à jour l'affichage de la barre de navigation en fonction de l'état de connexion
@@ -85,10 +107,22 @@ function updateNavbar() {
 // Appeler la fonction updateNavbar() pour initialiser correctement l'affichage au chargement de la page
 updateNavbar();
 
+// Fonction pour basculer entre l'état de connexion et de déconnexion
+function toggleLogin() {
+    const isLoggedIn = checkLoginStatus(); // Vérifie si l'utilisateur est connecté
 
+    if (isLoggedIn) {
+        // Si l'utilisateur est connecté, supprimer le jeton d'authentification
+        localStorage.removeItem('token');
+        // Rediriger vers la page de connexion
+        window.location.href = "login.html";
+    }
+
+    updateNavbar(); // Mettre à jour l'affichage de la barre de navigation
+}
 
 /*Récupération des données du back-end*/
-var requestOptions = {
+let requestOptions = {
     method: 'GET',
     redirect: 'follow'
 };
