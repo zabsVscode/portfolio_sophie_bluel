@@ -4,16 +4,87 @@ const filters = document.querySelector(".filters");
 let worksData = [];
 let set1 = new Set([0, 1, 2, 3]);
 
-// Sélection de l'élément li "log-out"
-var logOutElement = document.querySelector('ul li:nth-child(3)');
+// Création de la div pour le bandeau d'édition
+const bandeauEditionDiv = document.createElement("div");
+bandeauEditionDiv.classList.add("bandeau-edition");
 
-logOutElement.classList.add('li-pointer');
-// Ajout d'un gestionnaire d'événements au clic sur l'élément log-out
-logOutElement.addEventListener('click', function() {
+// Création de l'icône pour le mode édition
+const penIcon = document.createElement("i");
+penIcon.classList.add("fa-regular", "fa-pen-to-square", "bandeau-edition_colorIcon");
 
-    // Redirection vers la page index.html
-    window.location.href = "login.html";
-});
+// Création du paragraphe pour le texte "Mode édition"
+const modeEditionText = document.createElement("p");
+modeEditionText.textContent = "Mode édition";
+modeEditionText.classList.add("bandeau-edition_text");
+
+// Ajout de l'icône et du texte dans la div du bandeau d'édition
+bandeauEditionDiv.appendChild(penIcon);
+bandeauEditionDiv.appendChild(modeEditionText);
+
+// Sélection du body (ou tout autre élément parent où vous souhaitez insérer le bandeau d'édition)
+const bodyElement = document.querySelector("body");
+
+// Sélection du header
+const headerElement = document.querySelector("header");
+
+// Insertion du bandeau d'édition avant le header
+bodyElement.insertBefore(bandeauEditionDiv, headerElement);
+
+// Fonction pour vérifier si l'utilisateur est connecté
+function checkLoginStatus() {
+    const token = localStorage.getItem('token'); // Vérifie si un jeton d'authentification est présent dans le stockage local
+    return token !== null && token !== undefined; // Retourne true si un jeton est trouvé, sinon false
+}
+
+// Fonction pour basculer entre l'état de connexion et de déconnexion
+function toggleLogin() {
+    const isLoggedIn = checkLoginStatus(); // Vérifie si l'utilisateur est connecté
+
+    if (isLoggedIn) {
+        // Si l'utilisateur est connecté, supprimer le jeton d'authentification
+        localStorage.removeItem('token');
+        // Rediriger vers la page de connexion
+        window.location.href = "login.html";
+    }
+
+    updateNavbar(); // Mettre à jour l'affichage de la barre de navigation
+}
+
+// Fonction pour mettre à jour l'affichage de la barre de navigation en fonction de l'état de connexion
+function updateNavbar() {
+    const loginElement = document.querySelector('nav ul li:nth-child(3)');
+
+    // Modifier le texte en fonction de l'état de connexion
+    loginElement.textContent = checkLoginStatus() ? 'logout' : 'login';
+
+    // Ajouter un gestionnaire d'événements au clic sur l'élément login/logout
+    loginElement.addEventListener('click', function() {
+        if (!checkLoginStatus()) {
+            // Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+            window.location.href = "login.html";
+        } else {
+            // Si l'utilisateur est connecté, basculer entre l'état de connexion et de déconnexion
+            toggleLogin();
+        }
+    });
+
+        // Masquer ou afficher les filtres en fonction de l'état de connexion
+        if (checkLoginStatus()) {
+            filters.style.display = 'none'; // Masquer les filtres si l'utilisateur est connecté
+        } else {
+            filters.style.display = 'block'; // Afficher les filtres si l'utilisateur n'est pas connecté
+        }
+
+    // Ajouter la classe par défaut à toutes les balises <li> de la liste
+    const navItems = document.querySelectorAll('nav ul li');
+    navItems.forEach(item => {
+        item.classList.add('cursor-pointer'); // Remplacez 'votre-classe-par-defaut' par le nom de votre classe CSS par défaut
+    });
+}
+
+// Appeler la fonction updateNavbar() pour initialiser correctement l'affichage au chargement de la page
+updateNavbar();
+
 
 
 /*Récupération des données du back-end*/
@@ -41,7 +112,7 @@ function displayProjects(arrayWorks, container) {
         const img = document.createElement("img");
         const icon = document.createElement("i"); 
     
-        // Ajoutez l'attribut data-id avec la valeur de l'ID du projet à l'élément figure
+        // Ajoutez l'attribut work-id avec la valeur de l'ID du projet à l'élément figure
         figure.dataset.id = work.id;
     
         icon.classList.add("fa-solid", "fa-trash-can"); 
@@ -104,15 +175,6 @@ galleryModal1.addEventListener('click', (event) => {
 });
 
 
-
-
-
-
-
-
-
-
-    
 
         // Redirection sur la modal2 lors d'un event click sur button"
         document.querySelector('.addpicture').addEventListener('click', function() {

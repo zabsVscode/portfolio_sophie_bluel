@@ -4,38 +4,18 @@ let balisePassword = document.getElementById("password");
 
 /////// EMAIL
 
-/*function verifierEmail(balise) {
-  let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z]{2,}");
-  if (balise.value !== "" && !emailRegExp.test(balise.value)) {
-    balise.classList.add("error");
-  } else {
-    balise.classList.remove("error");
-  }
-}
+// Sélection de l'élément <h1>
+const h1Element = document.querySelector('h1');
 
-baliseEmail.addEventListener("change", () => {
-  if (baliseEmail.value !== "") {
-    verifierEmail(baliseEmail);
-  }
-});*/
+h1Element.classList.add('cursor-pointer');
 
-/////// PASSWORD
+// Ajout d'un gestionnaire d'événements au clic sur l'élément <h1>
+h1Element.addEventListener('click', function() {
+    // Redirection vers index.html
+    window.location.href = "index.html";
+});
 
-/*function verifierPassword(balise) {
-  let passwordRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-  if (balise.value !== "" && !passwordRegExp.test(balise.value)) {
-    balise.classList.add("error");
-  } else {
-    balise.classList.remove("error");
-  }
-}
-
-balisePassword.addEventListener("change", () => {
-  if (balisePassword.value !== "") {
-    verifierPassword(balisePassword);
-  }
-});*/
-
+//Bouton submit pour connexion, check la balise email/password
 
 
 form.addEventListener("submit", (event) => {
