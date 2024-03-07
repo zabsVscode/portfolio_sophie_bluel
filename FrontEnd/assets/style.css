@@ -497,6 +497,12 @@ footer nav ul {
     z-index: 1;
 }
 
+.preview-image {
+	object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
 
 .addpicture {
 	width: 173px;
@@ -645,10 +651,6 @@ form h3 {
 	height: 696px;
 	display: grid;
     place-items: center;
-}
-
-.error {
-	color:red;
 }
 
 /******MENU LOGIN******/

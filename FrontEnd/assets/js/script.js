@@ -164,7 +164,7 @@ function displayProjects(arrayWorks, container) {
     });
 
     
-    // Ajoutez l'affichage des projets dans la l'accueil en utilisant la fonction displayWorks
+    // Ajoutez l'affichage des projets dans l'accueil en utilisant la fonction displayWorks
     if (container === gallery) {
         displayWorks(arrayWorks);
     }
@@ -397,7 +397,6 @@ let modal = null;
 window.addEventListener('click', function(event) {
     if (modal !== null && event.target === modal) {
         closeModal('#' + modal.id);
-        window.location.href = 'index.html'; // Redirection vers la page d'accueil après la fermeture de la modal
     }
 });
 
@@ -427,14 +426,12 @@ const openModal = function(e) {
 document.querySelector('#modal1 .js-close-modal').addEventListener('click', function(event) {
     event.preventDefault();
     closeModal('#modal1');
-    window.location.href = 'index.html';
 });
 
 /* Gestionnaire d'événements pour le bouton de fermeture de la deuxième modal */
 document.querySelector('#modal2 .js-close-modal').addEventListener('click', function(event) {
     event.preventDefault();
     closeModal('#modal2');
-    window.location.href = 'index.html';
 });
 
 /* Fonction pour fermer une modal spécifique */
