@@ -311,7 +311,7 @@ footer nav ul {
 
 .modal-wrapper {
 
-	overflow:auto;
+	overflow:hidden;
 
 	width:600px;
 
@@ -499,8 +499,8 @@ footer nav ul {
 
 .preview-image {
 	object-fit: cover;
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 

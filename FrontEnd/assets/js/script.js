@@ -345,43 +345,42 @@ function displayWorks(arrayWorks) {
 /*Création des boutons, de leurs tableaux et de leurs appels individuel sans doublons*/
     
 function displayCategorysButtons(arrayWokrs) {
-  let categories = new Set( [
-       "Tous"
-  ]);
+    let categories = new Set(["Tous"]);
 
-  
+    arrayWokrs.forEach((work) => {
+        categories.add(work.category.name);
+    });
 
-  arrayWokrs.forEach((work) => {
-      categories.add(
-       work.category.name);
-  });
+    categories.forEach((categoryName) => {
+        const btn = document.createElement("button");
+        btn.textContent = categoryName;
+        btn.dataset.name = categoryName;
 
-  categories.forEach((categoryName) => {  
-      const btn = document.createElement("button");
-      btn.textContent = categoryName;
-      btn.dataset.name = categoryName;
-     
-      btn.addEventListener("click", (e) => {
-        document.querySelectorAll("button.filtersbutton").forEach(button => {
-        button.classList.remove("checkedfilter");
+        btn.addEventListener("click", (e) => {
+            document.querySelectorAll("button.filtersbutton").forEach(button => {
+                button.classList.remove("checkedfilter");
+            });
+            e.target.classList.add("checkedfilter");
+
+            let works = [];
+            e.preventDefault();
+            if (e.target.dataset.name !== "Tous") {
+                works = worksData.filter(
+                    (work) => work.category.name === e.target.dataset.name
+                );
+            } else {
+                works = worksData;
+            }
+            displayWorks(works);
         });
-        e.target.classList.add("checkedfilter");
-
-          let works = [];
-          e.preventDefault();
-          if (e.target.dataset.name !== "Tous") {
-              works = worksData.filter(
-                  (work) => work.category.name === e.target.dataset.name
-              );
-          } else {
-              works = worksData;
-          }
-          displayWorks(works);
-      });
-      btn.classList.add("filtersbutton");
-      filters.appendChild(btn);
-  });
+        btn.classList.add("filtersbutton");
+        if (categoryName === "Tous") {
+            btn.classList.add("checkedfilter"); // Ajouter la classe checkedfilter uniquement au bouton "Tous"
+        }
+        filters.appendChild(btn);
+    });
 }
+
 
 ////MODAL 1 INCLU DANS LA LIGNE 1 à 54 /////
 
