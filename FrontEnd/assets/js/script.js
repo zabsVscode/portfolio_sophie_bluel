@@ -4,7 +4,6 @@ const filters = document.querySelector(".filters");
 let worksData = [];
 let set1 = new Set([0, 1, 2, 3]);
 
-
 // Création de la div pour le bandeau d'édition
 const bandeauEditionDiv = document.createElement("div");
 bandeauEditionDiv.classList.add("bandeau-edition");
@@ -22,9 +21,9 @@ modeEditionText.classList.add("bandeau-edition_text");
 bandeauEditionDiv.appendChild(penIcon);
 bandeauEditionDiv.appendChild(modeEditionText);
 
-
-// Ajouterun event à "bandeauEditionDiv" pour ouvrir la modal
+// Ajouter un event à "bandeauEditionDiv" pour ouvrir la modal
 bandeauEditionDiv.addEventListener('click', openModalEdition);
+
 // Fonction pour ouvrir la modal lorsque "Mode édition" est cliqué
 function openModalEdition(event) {
     event.preventDefault(); // Empêcher le comportement par défaut du lien
@@ -61,9 +60,6 @@ if (checkLoginStatus()) {
     bodyElement.insertBefore(bandeauEditionDiv, headerElement);
 }
 
-
-
-
 ///////VERIFICATION SI L'USER EST CONNECTEE ET MODIFICATION EN FONCTION DE
 
 // Fonction pour vérifier si l'utilisateur est connecté
@@ -90,12 +86,12 @@ function updateNavbar() {
         }
     });
 
-        // Masquer ou afficher les filtres en fonction de l'état de connexion
-        if (checkLoginStatus()) {
-            filters.style.display = 'none'; // Masquer les filtres si l'utilisateur est connecté
-        } else {
-            filters.style.display = 'block'; // Afficher les filtres si l'utilisateur n'est pas connecté
-        }
+    // Masquer ou afficher les filtres en fonction de l'état de connexion
+    if (checkLoginStatus()) {
+        filters.style.display = 'none'; // Masquer les filtres si l'utilisateur est connecté
+    } else {
+        filters.style.display = 'block'; // Afficher les filtres si l'utilisateur n'est pas connecté
+    }
 
     // Ajouter la classe par défaut à toutes les balises <li> de la liste
     const navItems = document.querySelectorAll('nav ul li');
@@ -127,6 +123,7 @@ let requestOptions = {
     redirect: 'follow'
 };
 
+// Récupération des données des projets et des catégories depuis l'API
 fetch("http://localhost:5678/api/works", requestOptions)
     .then(response => response.json())
     .then(result => {
@@ -142,26 +139,29 @@ function displayProjects(arrayWorks, container) {
     container.innerHTML = ""; // Videz le contenu précédent
     arrayWorks.forEach((work) => {
         const figure = document.createElement("figure");
-        const containerImg = document.createElement("div"); 
+        const containerImg = document.createElement("div");
         const img = document.createElement("img");
-        const icon = document.createElement("i"); 
-    
+        const icon = document.createElement("i");
+
         // Ajoutez l'attribut work-id avec la valeur de l'ID du projet à l'élément figure
         figure.dataset.id = work.id;
-    
-        icon.classList.add("fa-solid", "fa-trash-can"); 
+
+        icon.classList.add("fa-solid", "fa-trash-can");
         img.src = work.imageUrl;
         img.classList.add("img-picture")
         figure.classList.add("gallery-picture");
         figure.appendChild(img);
-    
+
         icon.classList.add("trash-icon");
-    
+
         containerImg.appendChild(img);
         containerImg.appendChild(icon);
         figure.appendChild(containerImg);
         container.appendChild(figure);
     });
+
+    // Ajoutez l'affichage des projets dans l'accueil en utilisant la
+
 
     
     // Ajoutez l'affichage des projets dans l'accueil en utilisant la fonction displayWorks
@@ -293,34 +293,6 @@ function createSelectOptions(select, categories) {
         select.appendChild(option);
     });
 }
-
-// Récupération des catégories depuis l'API
-fetch('http://localhost:5678/api/categories')
-    .then(response => response.json())
-    .then(data => {
-        // Traitement des données récupérées pour créer les options du menu déroulant
-        const categories = data.map(category => ({
-            value: category.id,
-            text: category.name
-        }));
-
-        // Création du menu déroulant
-        const select = document.createElement("select");
-        select.classList.add("categoriesproject");
-        select.id = "dropdown";
-
-        // Ajout des options au menu déroulant
-        createSelectOptions(select, categories);
-
-        // Insertion du menu déroulant dans le DOM
-        const h3Categorie = document.querySelector('#modal2 h3');
-        h3Categorie.insertAdjacentElement('afterend', select);
-    })
-    .catch(error => {
-        // Gestion des erreurs
-        console.error('Erreur lors de la récupération des catégories depuis l\'API:', error);
-    });
-
         
 
 /*Affichage des works dans le DOM*/
