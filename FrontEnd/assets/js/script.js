@@ -134,6 +134,39 @@ fetch("http://localhost:5678/api/works", requestOptions)
     })
     .catch(error => console.log('error', error));
 
+    // Fonction pour récupérer les catégories via une requête HTTP
+// Fonction pour récupérer les catégories via une requête HTTP
+function fetchCategories() {
+    fetch('http://localhost:5678/api/categories')
+        .then(response => response.json())
+        .then(categories => {
+            console.log(categories); // Affiche les catégories dans la console pour vérification
+            generateDropdownOptions(categories); // Appel de la fonction pour générer les options du menu déroulant
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération des catégories:', error);
+        });
+}
+
+// Fonction pour générer les options du menu déroulant
+function generateDropdownOptions(categories) {
+    const dropdown = document.getElementById('dropdown'); // Sélectionnez le menu déroulant
+    dropdown.innerHTML = ''; // Videz le contenu actuel du menu déroulant
+
+    // Créez une option par catégorie et ajoutez-la au menu déroulant
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.id; // Utilisez l'ID de la catégorie comme valeur
+        option.textContent = category.name; // Utilisez le nom de la catégorie comme texte de l'option
+        dropdown.appendChild(option); // Ajoutez l'option au menu déroulant
+    });
+}
+
+// Appelez la fonction fetchCategories() pour récupérer les catégories au chargement de la page ou lorsque vous en avez besoin
+fetchCategories();
+
+
+
 /*Fonction pour afficher les projets*/
 function displayProjects(arrayWorks, container) {
     container.innerHTML = ""; // Videz le contenu précédent
@@ -371,6 +404,31 @@ window.addEventListener('click', function(event) {
     }
 });
 
+// Sélectionnez le formulaire dans la modal2
+const modal2Form = document.querySelector('#modal2 form');
+
+// Créez et insérez le menu déroulant dans le formulaire
+const categoryDropdown = document.createElement('select');
+categoryDropdown.classList.add('categoriesproject');
+categoryDropdown.id = 'dropdown'; // Définissez l'ID pour une référence facile
+categoryDropdown.name = 'category'; // Définissez le nom pour l'envoi du formulaire
+categoryDropdown.required = true;
+
+// Créez une option par défaut pour le menu déroulant
+const defaultOption = document.createElement('option');
+defaultOption.value = ''; // Laissez la valeur vide pour que l'utilisateur soit obligé de choisir une option
+defaultOption.textContent = 'Sélectionner une catégorie...'; // Texte par défaut pour guider l'utilisateur
+defaultOption.disabled = true; // Désactivez l'option par défaut pour qu'elle ne soit pas sélectionnable
+defaultOption.selected = true; // Sélectionnez l'option par défaut par défaut
+categoryDropdown.appendChild(defaultOption); // Ajoutez l'option par défaut au menu déroulant
+
+// Ajoutez des options supplémentaires dynamiquement en JavaScript lorsque les catégories sont chargées
+// Utilisez la fonction generateDropdownOptions(categories) pour cela
+
+// Insérez le menu déroulant dans le formulaire
+modal2Form.insertBefore(categoryDropdown, modal2Form.querySelector('.decoration-ligne-modal2'));
+
+
 /* Gestionnaire d'événements pour la fermeture de la modal "2" lors d'un clique à l'ext */
 window.addEventListener('click', function(event) {
     const modal2 = document.getElementById('modal2');
@@ -427,6 +485,10 @@ document.querySelector('#backModal1').addEventListener('click', function() {
 document.querySelectorAll('.js-modal').forEach(a => {
     a.addEventListener('click', openModal);
 });
+
+
+
+
 
 // Fonction pour mettre à jour l'affichage des éléments en fonction de l'état de connexion
 function updateElementVisibility() {
