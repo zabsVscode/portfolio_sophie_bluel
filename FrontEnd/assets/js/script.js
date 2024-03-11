@@ -8,6 +8,15 @@ let set1 = new Set([0, 1, 2, 3]);
 const bandeauEditionDiv = document.createElement("div");
 bandeauEditionDiv.classList.add("bandeau-edition");
 
+// Définir le style pour positionner le bandeau d'édition
+bandeauEditionDiv.style.position = "absolute";
+bandeauEditionDiv.style.top = "0";
+bandeauEditionDiv.style.left = "0";
+bandeauEditionDiv.style.width = "100%";
+
+// Ajoutez le bandeau d'édition au body ou à un autre élément parent
+document.body.appendChild(bandeauEditionDiv);
+
 // Création de l'icône pour le mode édition
 const penIcon = document.createElement("i");
 penIcon.classList.add("fa-regular", "fa-pen-to-square", "bandeau-edition_colorIcon");
