@@ -461,6 +461,10 @@ const openModal = function(e) {
     modal.addEventListener('click', closeModal);
     modal.querySelector('.js-close-modal').addEventListener('click', closeModal);
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation);
+
+    if (target.id === 'modal2') {
+        fetchCategories();
+    }
 }
 
 /* Gestionnaire d'événements pour le bouton de fermeture de la première modal */
