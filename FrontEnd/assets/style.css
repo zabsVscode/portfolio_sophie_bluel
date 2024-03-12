@@ -437,7 +437,7 @@ footer nav ul {
     gap: 25px;
     position: sticky;
     top: 175px;
-    left: 405px;
+    left: 573px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -750,6 +750,14 @@ padding: 6px, 5.99px, 5.99px, 6px;
     top: 50%;
     transform: translateY(-50%);
 }
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px; 
+    display: block;
+}
+
 
 #Login a {
 	color: #3D3D3D;

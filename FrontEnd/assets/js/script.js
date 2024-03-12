@@ -67,6 +67,8 @@ const headerElement = document.querySelector("header");
 // Insérer le bandeau d'édition avant le header si l'utilisateur est connecté
 if (checkLoginStatus()) {
     bodyElement.insertBefore(bandeauEditionDiv, headerElement);
+} else {
+    bandeauEditionDiv.style.display = 'none'; // Masquer le bandeau d'édition si l'utilisateur est déconnecté
 }
 
 ///////VERIFICATION SI L'USER EST CONNECTEE ET MODIFICATION EN FONCTION DE
@@ -126,6 +128,7 @@ function toggleLogin() {
     updateNavbar(); // Mettre à jour l'affichage de la barre de navigation
 }
 
+
 /*Récupération des données du back-end*/
 let requestOptions = {
     method: 'GET',
@@ -143,14 +146,14 @@ fetch("http://localhost:5678/api/works", requestOptions)
     })
     .catch(error => console.log('error', error));
 
-    // Fonction pour récupérer les catégories via une requête HTTP
+
 // Fonction pour récupérer les catégories via une requête HTTP
 function fetchCategories() {
     fetch('http://localhost:5678/api/categories')
         .then(response => response.json())
         .then(categories => {
-            console.log(categories); // Affiche les catégories dans la console pour vérification
-            generateDropdownOptions(categories); // Appel de la fonction pour générer les options du menu déroulant
+            console.log(categories); 
+            generateDropdownOptions(categories); 
         })
         .catch(error => {
             console.error('Erreur lors de la récupération des catégories:', error);
@@ -159,19 +162,19 @@ function fetchCategories() {
 
 // Fonction pour générer les options du menu déroulant
 function generateDropdownOptions(categories) {
-    const dropdown = document.getElementById('dropdown'); // Sélectionnez le menu déroulant
+    const dropdown = document.getElementById('dropdown');
     dropdown.innerHTML = ''; // Videz le contenu actuel du menu déroulant
 
     // Créez une option par catégorie et ajoutez-la au menu déroulant
     categories.forEach(category => {
         const option = document.createElement('option');
-        option.value = category.id; // Utilisez l'ID de la catégorie comme valeur
-        option.textContent = category.name; // Utilisez le nom de la catégorie comme texte de l'option
-        dropdown.appendChild(option); // Ajoutez l'option au menu déroulant
+        option.value = category.id;
+        option.textContent = category.name;
+        dropdown.appendChild(option);
     });
 }
 
-// Appelez la fonction fetchCategories() pour récupérer les catégories au chargement de la page ou lorsque vous en avez besoin
+
 fetchCategories();
 
 
