@@ -585,9 +585,9 @@ padding: 6px, 5.99px, 5.99px, 6px;
 .titleproject {
     width: 420px;
     height: 51px;
-    position: fixed;
-	top: 500px;
-    left: 666px;
+    position: absolute;
+    top: 329px;
+    left: 94px;
     box-shadow: 0px 4px 14px 0px #00000017;
     border: none;
 }

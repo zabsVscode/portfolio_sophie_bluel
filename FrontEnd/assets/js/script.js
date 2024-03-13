@@ -432,6 +432,26 @@ defaultOption.disabled = true; // Désactivez l'option par défaut pour qu'elle 
 defaultOption.selected = true; // Sélectionnez l'option par défaut par défaut
 categoryDropdown.appendChild(defaultOption); // Ajoutez l'option par défaut au menu déroulant
 
+// Ajouter un événement pour charger les catégories lorsque le menu déroulant est ouvert
+categoryDropdown.addEventListener('click', function() {
+    // Vérifie si les catégories ont déjà été récupérées
+    if (!cachedCategories) {
+        // Si les catégories ne sont pas encore récupérées, appelle l'API pour les récupérer
+        fetch('http://localhost:5678/api/categories')
+            .then(response => response.json())
+            .then(categories => {
+                // Stocke les catégories récupérées dans la variable globale
+                cachedCategories = categories;
+                // Génère les options du menu déroulant
+                generateDropdownOptions(categories);
+            })
+            .catch(error => {
+                // Gère les erreurs ici
+            });
+    }
+});
+
+
 // Ajoutez des options supplémentaires dynamiquement en JavaScript lorsque les catégories sont chargées
 // Utilisez la fonction generateDropdownOptions(categories) pour cela
 
