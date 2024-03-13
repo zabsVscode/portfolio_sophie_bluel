@@ -260,7 +260,6 @@ input[type="submit"]{
 	font-weight: 700;
 	color: #FFF;
 	background-color: #1D6154;
-	margin : 2em auto ;
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
@@ -413,20 +412,21 @@ footer nav ul {
 }
 
 .decoration-ligne {
-	width: 420px;
-    height: 0;
-    position: absolute;
-    top: 318px;
-    left: 115px;
-    border-top: 1px solid #B3B3B3;
-    background-color: #B3B3B3;
+		width: 420px;
+		height: 0;
+		position: absolute;
+		top: 493px;
+		left: 115px;
+		border-top: 1px solid #B3B3B3;
+		background-color: #B3B3B3;
+		margin: 0;
 }
 
 .decoration-ligne-modal2 {
 	width: 420px; 
 	height: 0; 
 	position: absolute; 
-	top: 545px; 
+	top: 451px; 
 	left: 92px; 
 	border-top: 1px solid #B3B3B3; 
 	background-color: #B3B3B3;
@@ -434,7 +434,6 @@ footer nav ul {
 
 
 .custom-form{
-    gap: 25px;
     position: sticky;
     top: 175px;
     left: 573px;
@@ -462,18 +461,20 @@ footer nav ul {
 }
 
 .custom-file-upload {
-    position: relative;
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    width: 420px;
-    height: 169px;
-    display: flex;
-    flex-direction: column;
-    position: sticky;
-    top: 118px;
-    left: 73px;
-    border-radius: 3px;
+	position: relative;
+	border: 1px solid #ccc;
+	display: inline-block;
+	padding: 6px 12px;
+	width: 420px;
+	height: 165px;
+	display: flex;
+	flex-direction: column;
+	position: sticky;
+	top: 83px;
+	left: 73px;
+	border-radius: 3px;
+	background-color: #E8F1F6;
+
 }
 
 .custom-icon {
@@ -510,10 +511,10 @@ footer nav ul {
 
 .addpicture {
 	width: 173px;
-	height: 36px;
+	height: 34px;
 
 	position: sticky;
-    top: 219px;
+    top: 171px;
     left: 190px;
 	cursor: pointer;
 
@@ -539,7 +540,7 @@ footer nav ul {
 	height: 12px;
 	
 	position: sticky;
-    top: 270px;
+	top: 219px;
     left: 233px;
 
 	font-family: Work Sans;
@@ -570,7 +571,7 @@ padding: 6px, 5.99px, 5.99px, 6px;
 	height: 16px;
 
 	position: sticky;
-    top: 328px;
+    top: 277px;
     left: 74px;
 
 	font-family: Work Sans;
@@ -582,17 +583,13 @@ padding: 6px, 5.99px, 5.99px, 6px;
 }
 
 .titleproject {
-	width: 420px;
-	height: 51px;
-	
-	position: sticky;
-    top: 118px;
-    left: 73px;
-
-	background: #FFFFFF;
-
-	box-shadow: 0px 4px 14px 0px #00000017;
-	border:none;
+    width: 420px;
+    height: 51px;
+    position: fixed;
+	top: 500px;
+    left: 666px;
+    box-shadow: 0px 4px 14px 0px #00000017;
+    border: none;
 }
 
 .categorietext {
@@ -600,7 +597,7 @@ padding: 6px, 5.99px, 5.99px, 6px;
 	height: 16px;
 	
 	position: sticky;
-    top: 445px;
+    top: 369px;
     left: 74px;
 
 	font-family: Work Sans;
@@ -616,9 +613,9 @@ padding: 6px, 5.99px, 5.99px, 6px;
 	width: 420px;
 	height: 51px;
 	
-	position: sticky;
-    top: 118px;
-    left: 73px;
+	position: absolute;
+	top: 420px;
+    left: 93px;
 
 	background: #FFFFFF;
 
@@ -629,11 +626,12 @@ padding: 6px, 5.99px, 5.99px, 6px;
 }
 
 .buttonvalidated {
-	width: 237px;
-	height: 36px;
-	top: 1239px;
-	left: 600px;
-	border-radius: 60px;
+		width: 237px;
+		height: 36px;
+		position: sticky;
+		top: 499px;
+		left: 158px;
+		border-radius: 60px;
 
 }
 
