@@ -147,38 +147,6 @@ fetch("http://localhost:5678/api/works", requestOptions)
     .catch(error => console.log('error', error));
 
 
-// Fonction pour récupérer les catégories via une requête HTTP
-function fetchCategories() {
-    fetch('http://localhost:5678/api/categories')
-        .then(response => response.json())
-        .then(categories => {
-            console.log(categories); 
-            generateDropdownOptions(categories); 
-        })
-        .catch(error => {
-            console.error('Erreur lors de la récupération des catégories:', error);
-        });
-}
-
-// Fonction pour générer les options du menu déroulant
-function generateDropdownOptions(categories) {
-    const dropdown = document.getElementById('dropdown'); // Sélectionnez le menu déroulant
-    dropdown.innerHTML = ''; // Videz le contenu actuel du menu déroulant
-
-    // Créez une option par catégorie et ajoutez-la au menu déroulant
-    categories.forEach(category => {
-        const option = document.createElement('option');
-        option.value = category.id; // Utilisez l'ID de la catégorie comme valeur
-        option.textContent = category.name; // Utilisez le nom de la catégorie comme texte de l'option
-        dropdown.appendChild(option); // Ajoutez l'option au menu déroulant
-    });
-}
-
-// Appelez la fonction fetchCategories() pour récupérer les catégories au chargement de la page ou lorsque vous en avez besoin
-fetchCategories();
-
-
-
 /*Fonction pour afficher les projets*/
 function displayProjects(arrayWorks, container) {
     container.innerHTML = ""; // Videz le contenu précédent
@@ -254,15 +222,45 @@ galleryModal1.addEventListener('click', (event) => {
 });
 
 
-
-        // Redirection sur la modal2 lors d'un event click sur button"
-        document.querySelector('.addpicture').addEventListener('click', function() {
-            event.preventDefault();
-            // Masquer la modal1
-            document.getElementById('modal1').style.display = 'none';
-            // Afficher la modal2
-            document.getElementById('modal2').style.display = 'block';
+// Fonction pour récupérer les catégories via une requête HTTP
+function fetchCategories() {
+    return fetch('http://localhost:5678/api/categories')
+        .then(response => response.json())
+        .catch(error => {
+            console.error('Erreur lors de la récupération des catégories:', error);
         });
+}
+
+// Fonction pour générer les options du menu déroulant
+function generateDropdownOptions(categories) {
+    const dropdown = document.getElementById('dropdown'); // Sélectionnez le menu déroulant
+    dropdown.innerHTML = ''; // Videz le contenu actuel du menu déroulant
+
+    // Créez une option par catégorie et ajoutez-la au menu déroulant
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.id; // Utilisez l'ID de la catégorie comme valeur
+        option.textContent = category.name; // Utilisez le nom de la catégorie comme texte de l'option
+        dropdown.appendChild(option); // Ajoutez l'option au menu déroulant
+    });
+}
+
+// Redirection sur la modal2 lors d'un event click sur button
+document.querySelector('.addpicture').addEventListener('click', function(event) {
+    event.preventDefault();
+    // Masquer la modal1
+    document.getElementById('modal1').style.display = 'none';
+    // Afficher la modal2
+    document.getElementById('modal2').style.display = 'block';
+    // Appeler les catégories lors de l'ouverture de la modal2 et générer les options du menu déroulant
+    fetchCategories()
+        .then(categories => {
+            generateDropdownOptions(categories);
+        });
+});
+
+
+
 
        // Redirection sur la modal1 lors d'un event click sur la flèche back
 
@@ -461,10 +459,6 @@ const openModal = function(e) {
     modal.addEventListener('click', closeModal);
     modal.querySelector('.js-close-modal').addEventListener('click', closeModal);
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation);
-
-    if (target.id === 'modal2') {
-        fetchCategories();
-    }
 }
 
 /* Gestionnaire d'événements pour le bouton de fermeture de la première modal */
