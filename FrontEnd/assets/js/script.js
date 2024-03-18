@@ -420,8 +420,8 @@ const modal2Form = document.querySelector('#modal2 form');
 // Créez et insérez le menu déroulant dans le formulaire
 const categoryDropdown = document.createElement('select');
 categoryDropdown.classList.add('categoriesproject');
-categoryDropdown.id = 'dropdown'; // Définissez l'ID pour une référence facile
-categoryDropdown.name = 'category'; // Définissez le nom pour l'envoi du formulaire
+categoryDropdown.id = 'dropdown'; // Définir l'ID pour une référence facile
+categoryDropdown.name = 'category'; // Définir le nom pour l'envoi du formulaire
 categoryDropdown.required = true;
 
 // Créez une option par défaut pour le menu déroulant
@@ -432,29 +432,6 @@ defaultOption.disabled = true; // Désactivez l'option par défaut pour qu'elle 
 defaultOption.selected = true; // Sélectionnez l'option par défaut par défaut
 categoryDropdown.appendChild(defaultOption); // Ajoutez l'option par défaut au menu déroulant
 
-// Ajouter un événement pour charger les catégories lorsque le menu déroulant est ouvert
-categoryDropdown.addEventListener('click', function() {
-    // Vérifie si les catégories ont déjà été récupérées
-    if (!cachedCategories) {
-        // Si les catégories ne sont pas encore récupérées, appelle l'API pour les récupérer
-        fetch('http://localhost:5678/api/categories')
-            .then(response => response.json())
-            .then(categories => {
-                // Stocke les catégories récupérées dans la variable globale
-                cachedCategories = categories;
-                // Génère les options du menu déroulant
-                generateDropdownOptions(categories);
-            })
-            .catch(error => {
-                // Gère les erreurs ici
-            });
-    }
-});
-
-
-// Ajoutez des options supplémentaires dynamiquement en JavaScript lorsque les catégories sont chargées
-// Utilisez la fonction generateDropdownOptions(categories) pour cela
-
 // Insérez le menu déroulant dans le formulaire
 modal2Form.insertBefore(categoryDropdown, modal2Form.querySelector('.decoration-ligne-modal2'));
 
@@ -464,7 +441,6 @@ window.addEventListener('click', function(event) {
     const modal2 = document.getElementById('modal2');
     if (modal2 !== null && event.target === modal2) {
         closeModal('#modal2');
-        window.location.href = 'index.html'; // Redirection vers la page d'accueil après la fermeture de la modal
     }
 });
 
@@ -507,7 +483,7 @@ function closeModal(modalId) {
 
 /* Event function pour retourner à la modal1 depuis la modal2 */
 document.querySelector('#backModal1').addEventListener('click', function() {
-    document.getElementById('modal2').style.display = 'none';
+    closeModal('#modal2');
     document.getElementById('modal1').style.display = 'block';
 });
 

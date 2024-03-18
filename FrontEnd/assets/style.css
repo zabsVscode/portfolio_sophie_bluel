@@ -260,7 +260,7 @@ input[type="submit"]{
 	font-weight: 700;
 	color: #FFF;
 	background-color: #1D6154;
-	width: 180px;
+	width: 259px;
 	text-align: center;
 	border-radius: 60px ;
 }
@@ -415,7 +415,7 @@ footer nav ul {
 		width: 420px;
 		height: 0;
 		position: absolute;
-		top: 493px;
+		top: 446px;
 		left: 115px;
 		border-top: 1px solid #B3B3B3;
 		background-color: #B3B3B3;
@@ -514,7 +514,7 @@ footer nav ul {
 	height: 34px;
 
 	position: sticky;
-    top: 171px;
+    top: 482px;
     left: 190px;
 	cursor: pointer;
 
@@ -531,8 +531,30 @@ footer nav ul {
 	line-height: 16px;
 	letter-spacing: 0em;
 	text-align: center;
+}
+
+.addpicturepreview {
+	width: 173px;
+	height: 34px;
+
+	position: sticky;
+    top: 178px;
+    left: 190px;
+	cursor: pointer;
+
+	border-radius: 50px;
+
+	color: #306685;
+	background-color: #CBD6DC;
+	border: none;
 
 
+	font-family: Work Sans;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 16px;
+	letter-spacing: 0em;
+	text-align: center;
 }
 
 .sizemax {
