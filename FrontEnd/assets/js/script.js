@@ -512,24 +512,28 @@ function updateElementVisibility() {
 updateElementVisibility();
 
 
-/*Upload Photo*/
-document.querySelector('#modal2 .addpicture').addEventListener('click', function() {
-    document.getElementById('upload').click();
-});
+document.addEventListener('DOMContentLoaded', function() {
+    // Ajoutez ici votre code JavaScript pour gérer les événements une fois que le DOM est chargé
 
-// Fonction pour précharger et afficher l'image sélectionnée
-document.getElementById('upload').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const preview = document.getElementById('image-preview');
-            preview.innerHTML = ""; // Supprimer le contenu précédent
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            img.classList.add('preview-image');
-            preview.appendChild(img);
-        };
-        reader.readAsDataURL(file);
-    }
+    // Gestion de l'événement "click" sur le bouton "Add Picture" de la modal2
+    document.querySelector('#modal2 .addpicturepreview').addEventListener('click', function() {
+        document.getElementById('upload').click();
+    });
+
+    // Gestion de l'événement "change" sur l'élément d'entrée de type fichier
+    document.getElementById('upload').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById('image-preview');
+                preview.innerHTML = ""; // Supprimer le contenu précédent
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.classList.add('preview-image');
+                preview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
 });
