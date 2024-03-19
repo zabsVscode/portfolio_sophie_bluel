@@ -31,7 +31,10 @@ bandeauEditionDiv.appendChild(penIcon);
 bandeauEditionDiv.appendChild(modeEditionText);
 
 // Ajouter un event à "bandeauEditionDiv" pour ouvrir la modal
-bandeauEditionDiv.addEventListener('click', openModalEdition);
+if (!bandeauEditionDiv.hasEventListener) {
+    bandeauEditionDiv.addEventListener('click', openModalEdition);
+    bandeauEditionDiv.hasEventListener = true;
+}
 
 // Fonction pour ouvrir la modal lorsque "Mode édition" est cliqué
 function openModalEdition(event) {
@@ -49,6 +52,7 @@ function openModalEdition(event) {
     }
 }
 
+
 // Fonction pour fermer la modal si clique en dehors
 function closeModalEdition(event) {
     const modal = document.getElementById('modal1');
@@ -57,6 +61,58 @@ function closeModalEdition(event) {
         window.removeEventListener('click', closeModalEdition); // Supprimer l'écouteur d'événements
     }
 }
+
+// Fonction pour récupérer les catégories via une requête HTTP
+function fetchCategories() {
+    console.log("Fetching categories..."); // Ajout du console.log pour indiquer le début de la récupération des catégories
+    return fetch('http://localhost:5678/api/categories')
+        .then(response => response.json())
+        .catch(error => {
+            console.error('Erreur lors de la récupération des catégories:', error);
+        });
+}
+
+// Fonction pour générer les options du menu déroulant
+function generateDropdownOptions(categories) {
+    const dropdown = document.getElementById('dropdown'); // Sélectionnez le menu déroulant
+    dropdown.innerHTML = ''; // Videz le contenu actuel du menu déroulant
+
+    // Créez une option par catégorie et ajoutez-la au menu déroulant
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.id; // Utilisez l'ID de la catégorie comme valeur
+        option.textContent = category.name; // Utilisez le nom de la catégorie comme texte de l'option
+        dropdown.appendChild(option); // Ajoutez l'option au menu déroulant
+    });
+}
+
+// Fonction pour gérer l'ouverture de la modal2
+function openModal2() {
+    console.log("Modal1 closed, opening Modal2..."); // Indique l'ouverture de la modal2
+    // Masquer la modal1
+    document.getElementById('modal1').style.display = 'none';
+    // Afficher la modal2
+    document.getElementById('modal2').style.display = 'block';
+    // Appeler les catégories lors de l'ouverture de la modal2 et générer les options du menu déroulant
+    fetchCategories()
+        .then(categories => {
+            console.log("Categories fetched successfully."); // Indique que les catégories ont été récupérées avec succès
+            generateDropdownOptions(categories);
+        });
+}
+
+// Gestionnaire d'événements pour le bouton ".addpicture"
+function handleAddPictureClick(event) {
+    event.preventDefault();
+    openModal2();
+}
+
+// Ajouter un gestionnaire d'événements au bouton ".addpicture"
+document.querySelector('.addpicture').addEventListener('click', handleAddPictureClick);
+
+
+
+
 
 // Sélection du body
 const bodyElement = document.querySelector("body");
@@ -221,47 +277,6 @@ galleryModal1.addEventListener('click', (event) => {
     }
 });
 
-
-// Fonction pour récupérer les catégories via une requête HTTP
-function fetchCategories() {
-    return fetch('http://localhost:5678/api/categories')
-        .then(response => response.json())
-        .catch(error => {
-            console.error('Erreur lors de la récupération des catégories:', error);
-        });
-}
-
-// Fonction pour générer les options du menu déroulant
-function generateDropdownOptions(categories) {
-    const dropdown = document.getElementById('dropdown'); // Sélectionnez le menu déroulant
-    dropdown.innerHTML = ''; // Videz le contenu actuel du menu déroulant
-
-    // Créez une option par catégorie et ajoutez-la au menu déroulant
-    categories.forEach(category => {
-        const option = document.createElement('option');
-        option.value = category.id; // Utilisez l'ID de la catégorie comme valeur
-        option.textContent = category.name; // Utilisez le nom de la catégorie comme texte de l'option
-        dropdown.appendChild(option); // Ajoutez l'option au menu déroulant
-    });
-}
-
-// Redirection sur la modal2 lors d'un event click sur button
-document.querySelector('.addpicture').addEventListener('click', function(event) {
-    event.preventDefault();
-    // Masquer la modal1
-    document.getElementById('modal1').style.display = 'none';
-    // Afficher la modal2
-    document.getElementById('modal2').style.display = 'block';
-    // Appeler les catégories lors de l'ouverture de la modal2 et générer les options du menu déroulant
-    fetchCategories()
-        .then(categories => {
-            generateDropdownOptions(categories);
-        });
-});
-
-
-
-
        // Redirection sur la modal1 lors d'un event click sur la flèche back
 
         document.querySelector('.back-to-modal1').addEventListener('click', function() {
@@ -327,16 +342,6 @@ document.querySelector('.addpicture').addEventListener('click', function(event) 
         });
     });
 
-// Fonction pour créer et insérer les options du select
-function createSelectOptions(select, categories) {
-    categories.forEach(category => {
-        const option = document.createElement("option");
-        option.value = category.value;
-        option.text = category.text;
-        select.appendChild(option);
-    });
-}
-        
 
 /*Affichage des works dans le DOM*/
 
