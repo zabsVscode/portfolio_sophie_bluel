@@ -14,7 +14,7 @@ bandeauEditionDiv.style.top = "0";
 bandeauEditionDiv.style.left = "0";
 bandeauEditionDiv.style.width = "100%";
 
-// Ajoutez le bandeau d'édition au body ou à un autre élément parent
+// Ajoutez le bandeau d'édition au body
 document.body.appendChild(bandeauEditionDiv);
 
 // Création de l'icône pour le mode édition
@@ -77,7 +77,7 @@ function generateDropdownOptions(categories) {
     const dropdown = document.getElementById('dropdown'); // Sélectionnez le menu déroulant
     dropdown.innerHTML = ''; // Videz le contenu actuel du menu déroulant
 
-    // Créez une option par catégorie et ajoutez-la au menu déroulant
+    // Créez une option par catégorie et l'ajouter au menu déroulant
     categories.forEach(category => {
         const option = document.createElement('option');
         option.value = category.id; // Utilisez l'ID de la catégorie comme valeur
@@ -88,7 +88,7 @@ function generateDropdownOptions(categories) {
 
 // Fonction pour gérer l'ouverture de la modal2
 function openModal2() {
-    console.log("Modal1 closed, opening Modal2..."); // Indique l'ouverture de la modal2
+    console.log("Modal1 fermer, ouverture Modal2..."); // Indique l'ouverture de la modal2
     // Masquer la modal1
     document.getElementById('modal1').style.display = 'none';
     // Afficher la modal2
@@ -96,7 +96,7 @@ function openModal2() {
     // Appeler les catégories lors de l'ouverture de la modal2 et générer les options du menu déroulant
     fetchCategories()
         .then(categories => {
-            console.log("Categories fetched successfully."); // Indique que les catégories ont été récupérées avec succès
+            console.log("Categories recupérées avec succès."); // Indique que les catégories ont été récupérées avec succès
             generateDropdownOptions(categories);
         });
 }
@@ -109,8 +109,6 @@ function handleAddPictureClick(event) {
 
 // Ajouter un gestionnaire d'événements au bouton ".addpicture"
 document.querySelector('.addpicture').addEventListener('click', handleAddPictureClick);
-
-
 
 
 
@@ -161,11 +159,10 @@ function updateNavbar() {
     // Ajouter la classe par défaut à toutes les balises <li> de la liste
     const navItems = document.querySelectorAll('nav ul li');
     navItems.forEach(item => {
-        item.classList.add('cursor-pointer'); // Remplacez 'votre-classe-par-defaut' par le nom de votre classe CSS par défaut
+        item.classList.add('cursor-pointer');
     });
 }
 
-// Appeler la fonction updateNavbar() pour initialiser correctement l'affichage au chargement de la page
 updateNavbar();
 
 // Fonction pour basculer entre l'état de connexion et de déconnexion
@@ -229,8 +226,6 @@ function displayProjects(arrayWorks, container) {
         container.appendChild(figure);
     });
 
-    // Ajoutez l'affichage des projets dans l'accueil en utilisant la
-
 
     
     // Ajoutez l'affichage des projets dans l'accueil en utilisant la fonction displayWorks
@@ -292,7 +287,6 @@ galleryModal1.addEventListener('click', (event) => {
 
 
     // Selection du boutton valider, puis récupère les informations du projet pour le BackEnd
-    //
 
     document.querySelector('.buttonvalidated').addEventListener('click', function(event) {
         event.preventDefault(); // Empêcher le comportement par défaut du bouton
@@ -408,9 +402,9 @@ function displayCategorysButtons(arrayWokrs) {
 
 const stopPropagation = function (e) {
     e.stopPropagation();
-}
+} // Cette fonction est définie pour empêcher la propagation des événements
 
-let modal = null;
+let modal = null; // variable pour stocker les éléments de la modal ouverte & sera remis à nul lors d'un changement de modal
 
 /* Gestion de la fermeture de la modal "1" lors d'un clique à l'ext */
 window.addEventListener('click', function(event) {
@@ -518,9 +512,7 @@ updateElementVisibility();
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Ajoutez ici votre code JavaScript pour gérer les événements une fois que le DOM est chargé
-
-    // Gestion de l'événement "click" sur le bouton "Add Picture" de la modal2
+    // Gestion de l'événement "click" sur le bouton "Add Picture Preview" de la modal2
     document.querySelector('#modal2 .addpicturepreview').addEventListener('click', function() {
         document.getElementById('upload').click();
     });
@@ -528,9 +520,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Gestion de l'événement "change" sur l'élément d'entrée de type fichier
     document.getElementById('upload').addEventListener('change', function(e) {
         const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
+        if (file) { // Si c'est un fichier
+            const reader = new FileReader(); //C'est lui lu grace à FileReader
+            reader.onload = function(e) { // Puis la function est exécuté quand la lecture de FileReader à était faites
                 const preview = document.getElementById('image-preview');
                 preview.innerHTML = ""; // Supprimer le contenu précédent
                 const img = document.createElement('img');
@@ -538,7 +530,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 img.classList.add('preview-image');
                 preview.appendChild(img);
             };
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(file); // Lit le contenu du fichier sous la forme d'une URL de données
         }
     });
 });
