@@ -64,7 +64,7 @@ function closeModalEdition(event) {
 
 // Fonction pour récupérer les catégories via une requête HTTP
 function fetchCategories() {
-    console.log("Fetching categories..."); // Ajout du console.log pour indiquer le début de la récupération des catégories
+    console.log("recupération categories..."); // début de la récupération des catégories
     return fetch('http://localhost:5678/api/categories')
         .then(response => response.json())
         .catch(error => {
