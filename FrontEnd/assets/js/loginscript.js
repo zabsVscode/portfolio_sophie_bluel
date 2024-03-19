@@ -14,10 +14,6 @@ h1Element.addEventListener('click', function() {
 form.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    // Supprimer les messages d'erreur précédents
-    document.getElementById("loginErrorMessage").textContent = "Identifiants ou mot de passe invalides";
-
-
     // Récupérer les valeurs actuelles des champs email et mot de passe
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
